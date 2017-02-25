@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+       
+        <title>Ion-Naming Practice</title>
+        
+        <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" />
+        <link rel="stylesheet" href="style.css" type="text/css" />
+       
+      
+        <script src="myjsjq.js"></script>
+        <script type="text/javascript" src="qtype.js"></script>
+        
+        <script src="jquery.js"></script>
+        <script src="jquery-ui.min.js"></script>
+        <script>
+
+        var practiceName="";
+        var quizType;
+        var useThisArray = [];
+        var numQ="";
+        var time=0;
+           var answer;
+           var qNumber = 1;
+           var ans;
+           var ans1;
+           var ans2;
+           var ans3;
+           var ans4;
+           var ans5;
+           var i;
+           
+           var questionNumbers = [];
+           var userAnswers = [];
+           var correctAnswers = [];
+           var correctAns;
+           var newWina;
+           var numCorrectAnswers;
+           var ionSymbol;
+           var ionSymbols = [];
+           var explanationList;
+           var explanationIndex;
+           var explanation;
+           var explanationActual;
+
+           var timeInterval
+
+          
+           var ions = ["","","S\u2082O\u2085","S\u2082O\u2087","","","HSO\u2082","HSO\u2083","HSO\u2084","SeO\u2082","SeO\u2083","SeO\u2084","Se\u2082O\u2085","Se\u2082O\u2087","HSeO\u2082","HSeO\u2083","HSeO\u2084","TeO\u2082","TeO\u2083","TeO\u2084","TeO\u2085","TeO\u2086","Te\u2082O\u2081\u2080","HTeO\u2083","HTeO\u2084","N\u2083","NH\u2084","NH\u2082","NO\u2082","NO\u2083","HPO\u2082","H\u2082PO\u2082","HPO\u2083","H\u2082PO\u2083","PO\u2084","HPO\u2084","H\u2082PO\u2084","P\u2082O\u2087","AsO\u2082","AsO\u2083","As\u2082O\u2085","HAsO\u2083","H\u2082AsO\u2083","AsO\u2084","HAsO\u2084","H\u2082AsO\u2084","As\u2082O\u2087","BiO\u2083","CO\u2083","HCO\u2083","HCO\u2082","C\u2082H\u2083O\u2082","C\u2082O\u2084","HC\u2082O\u2084","CN","SCN","OCN","CNO","SiO\u2084","SiO\u2083","Si\u2082O\u2087","GeO\u2084","GeO\u2083","SnO\u2084","SnO\u2083","SnO\u2082","PbO\u2082","HPbO\u2082","PbO\u2084","PbO\u2083","HPbO\u2084"]
+
+           var ionCharge = ["","","","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u207B","\u207B","\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u207B","\u207B","\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u2074\u207B","\u2076\u207B","\u2078\u207B","\u207B","\u207B","\u207B","\u207A","\u207B","\u207B","\u207B","\u00B2\u207B","\u207B","\u00B2\u207B","\u207B","\u00B3\u207B","\u00B2\u207B","\u207B","\u2074\u207B","\u207B","\u00B3\u207B","\u2074\u207B","\u00B2\u207B","\u207B","\u00B3\u207B","\u00B2\u207B","\u207B","\u2074\u207B","\u207B","\u00B2\u207B","\u207B","\u207B","\u207B","\u00B2\u207B","\u207B","\u207B","\u207B","\u207B","\u207B","\u2074\u207B","\u00B2\u207B","\u2076\u207B","\u2074\u207B","\u00B2\u207B","\u2074\u207B","\u00B2\u207B","\u00B2\u207B","\u00B2\u207B","\u207B","\u2074\u207B","\u00B2\u207B","\u00B3\u207B"]
+
+           var ionName = ["Hydrogen Hyposulfite","Hydrogen Sulfite","Hydrogen Sulfate","Hyposelenite","Selenite","Selenate","Diselenite","Diselenate","Hydrogen Hyposelenite","Hydrogen Selenite","Hydrogen Selenate","Hypotellurite","Tellurite","Metatellurate","Pentaoxytellurate","Orthotellurate","Ditellurate","Hydrogen Tellurite","Hydrogen Tellurate","Azide","Ammonium","Amide","Nitrite","Nitrate","Hydrogen Hypophosphite","Dihydrogen Hypophosphite","Hydrogen Phosphite","Dihydrogen Phosphite","Phosphate","Hydrogen Phosphate","Dihydrogen Phosphate","Pyrophosphate","Metaarsenite","Arsenite","Pyroarsenite","Hydrogen Arsenite","Dihydrogen Arsenite","Arsenate","Hydrogen Arsenate","Dihydrogen Arsenate","Diarsenate","Bismuthate","Carbonate","Hydrogen Carbonate","Formate","Acetate","Oxalate","Hydrogen Oxalate","Cyanide","Thiocyanate","Cyanate","Fulminate","(Ortho)silicate","Silicate","Pyrosilicate","Orthogermanate","Germanate","Orthostannate","Stannate","Stannite","Plumbite","Hydrogen Plumbite","Orthoplumbate","Plumbate","Hydrogen Plumbate"]
+
+           
+           
+
+            
+
+            
+
+        $(document).ready(function() {
+
+           $("#sessionBegin").on('click',function(){
+
+            $("#main").fadeOut(100);
+            $("#dialog").dialog('open');
+
+            //alert(ionArray.length);
+            //alert(ionArray[10].ionName);
+            //alert(ionArray[10].explanation);
+            
+          });
+
+            $("#dialog").dialog({
+
+            dialogClass: "no-close",
+            width:'1050',
+            height: '650',
+            autoOpen: false,
+            buttons: [  {
+                text: "Quit",
+                click: function() {
+                  $(this).dialog ("close");
+
+                  closeEverything();
+
+                  $("#main").fadeIn(500);
+
+                  }
+                }  
+              
+              ]
+
+            });
+
+            $("#yourName").fadeIn(500);
+
+          
+
+           $("#submitName").on('click',function(){
+
+              practiceName=document.getElementById("inputYourName").value
+              checkIsValid(practiceName);
+
+           });
+
+             $('#allIons').on('click', function(){
+              quizType = 1;
+              $('#quizType').fadeOut(300);
+              setTimeout(getNumQ, 300);
+
+            });
+              $('#ionsYouMustKnowA').on('click', function(){
+              quizType = 2;
+              $('#quizType').fadeOut(300);
+              quizTypeExp(quizType);
+
+            });
+
+              $('#qTypeCont').on('click', function() {
+
+                $('#quizTypeExp').fadeOut(300);
+                setTimeout(getNumQ, 300);
+
+              });
+
+ // 
+
+               $('#allPolyatomicIons').on('click', function(){
+              quizType = 3;
+              $('#quizType').fadeOut(300);
+              setTimeout(getNumQ, 300);
+
+            });
+               $('#polyatomicIonsYouMustKnow').on('click', function(){
+              // quizType = 4;
+              // $('#quizType').fadeOut(300);
+              // setTimeout(getNumQ, 300);
+
+            });
+                $('#monoatomicIons').on('click', function(){
+              quizType = 5;
+              $('#quizType').fadeOut(300);
+              setTimeout(getNumQ, 300);
+
+            });
+
+              $('#ionsYouMustKnowB').on('click', function(){
+              quizType = 6;
+              $('#quizType').fadeOut(300);
+
+              quizTypeExp(quizType);
+
+            });
+
+
+            $('#q10').on('click', function(){
+              numQ=10;
+              timer();
+           });
+            $('#q25').on('click', function(){
+              numQ=25;
+              timer();
+           });
+           $('#q50').on('click', function(){
+              numQ=50;
+              timer();
+           });
+           $('#q100').on('click', function(){
+              numQ=100;
+              timer();
+            });
+           $('#timer5').on('click', function(){
+              time=5000;
+              $('#timerAmount').fadeOut(100, startButton)
+           });
+           $('#timer8').on('click', function(){
+              time=8000;
+              $('#timerAmount').fadeOut(100, startButton)
+           });
+           $('#timer10').on('click', function(){
+              time=10000;
+              $('#timerAmount').fadeOut(100, startButton)
+           });
+           $('#timer15').on('click', function(){
+              time=15000;
+              $('#timerAmount').fadeOut(100, startButton)
+           });
+           $('#timerNone').on('click', function(){
+              time=0;
+              $('#timerAmount').fadeOut(100, startButton)
+           });
+
+
+
+            $('#answerA').on('click', function(){
+              clearInterval(timeInterval);
+              ans=ans1
+              $('#clock').hide()
+              handleAnswer()
+            });
+             $('#answerB').on('click', function(){
+              clearInterval(timeInterval);
+              ans=ans2
+              $('#clock').hide()
+              handleAnswer()
+            });
+            $('#answerC').on('click', function(){
+              clearInterval(timeInterval);
+              ans=ans3
+              $('#clock').hide()
+              handleAnswer()
+            });
+             $('#answerD').on('click', function(){
+              clearInterval(timeInterval);
+              ans=ans4
+              $('#clock').hide()
+              handleAnswer()
+            });
+             $('#answerE').on('click', function(){
+              clearInterval(timeInterval);
+              ans=ans5
+              $('#clock').hide()
+              handleAnswer()
+            });
+          
+            $("#startButton").on('click', function() {
+
+                $('#titlespan').css('display','none');
+                $('#startButton').css('display','none');
+
+                numCorrectAnswers = 0;
+
+                
+
+                $('#explanation').fadeIn(500)
+                
+           
+
+                play();
+
+                });
+
+            $("#nextQuestionCorrect").on('click', function() {
+
+              if (newWina) {
+                  newWina.close();
+                }
+
+                $('#correctAnswerSpan').css('display','none');
+
+                $('#questionIon').empty();
+                $('#answerA').empty();
+                $('#answerB').empty();
+                $('#answerC').empty();
+                $('#answerD').empty();
+                $('#answerE').empty();
+                $('#correctAnswer').empty();
+                $('#explanationText').empty();
+                $('#hours').empty();
+                $('#minutes').empty();
+                $('#seconds').empty();
+
+                questionNumbers.push(i+1);
+                userAnswers.push(ans);
+                correctAnswers.push(ans);
+                ionSymbols.push(ionSymbol)
+                numCorrectAnswers = numCorrectAnswers+1
+                //alert(numCorrectAnswers);
+                //alert(questionNumbers);
+                //alert(userAnswers);
+                //alert(correctAnswers);
+                //alert(ionSymbols);
+
+               
+
+
+                play();
+
+            });
+          
+            $('#nextQuestionIncorrect').on('click', function()  {
+
+              if (newWina) {
+                  newWina.close();
+                }
+
+              $('#incorrectAnswerSpan').css('display','none');
+              $('#questionIon').empty();
+                $('#answerA').empty();
+                $('#answerB').empty();
+                $('#answerC').empty();
+                $('#answerD').empty();
+                $('#answerE').empty();
+                $('#incorrectAnswer').empty();
+                $('#explanationText').empty();
+                $('#hours').empty();
+                $('#minutes').empty();
+                $('#seconds').empty();
+
+                questionNumbers.push(i+1);
+                userAnswers.push(ans);
+                //if (quizType==1) {
+
+                  correctAnswers.push(correctAns);
+                  ionSymbols.push(ionSymbol)
+
+                //}
+                //alert(questionNumbers);
+                //alert(userAnswers);
+                //alert(correctAnswers);
+                //alert(ionSymbols);
+
+                play();
+
+            });
+
+            $('#seeResults').on('click',function() {
+
+              accessoryWindow("resultsScreen.html","",900, 700)
+
+            })
+
+            $('#morePractice').on('click',function() {
+
+              closeEverything();
+
+            })
+
+
+        
+
+
+          function checkIsValid(a) {
+
+                  if(isValid(a)) {
+
+                    hideName();
+
+                    }
+
+                }
+
+
+
+          function isValid(a) {
+          
+            var re = /.+/;
+            if(!a.match(re)) {
+
+             alert("You Must Enter a Name")
+
+             return false;
+
+            }
+
+            return true; //get here if data passes conditions
+
+          }
+
+          function hideName() {
+
+            $('#yourName').fadeOut(100);
+
+            $('#quizType').fadeIn(500);
+ 
+          } 
+
+         function quizTypeExp(a) {
+
+          //alert('got to quizTypeExp')
+
+          $('#quizTypeExp').fadeIn(500);
+
+          getQuizTypeExp(a);
+
+          $('#quizTypeExpText').append(actualQuizTypeExpHeader)
+          $('#quizTypeExpWindow').append(actualQuizTypeExp);
+
+         }
+
+           function getNumQ() {
+
+            if(quizType===6) {
+
+              $('#q100').prop('disabled', true);
+
+            } else {
+
+              $('#q100').prop('disabled', false);
+
+            }
+
+            $('#qNum').fadeIn(500)
+            
+            }
+
+           function timer() {
+
+            $('#qNum').fadeOut(100);
+
+            $('#timerAmount').fadeIn(500);
+
+            }
+
+          function startButton() {
+            //alert('Got to start button')
+           // alert(quizType);
+             // alert(numQ);
+
+                $.ajax({
+
+                 type: 'POST',
+                 url: 'test.php',
+                 data: { 
+                  "qType": quizType,
+                  "numQ": numQ
+                  },
+                 dataType: 'json',
+                 success: function(data) {
+                 
+                 
+                  
+                  for(var i = 0; i<numQ; i++) {
+
+                    var pushElement = data[0][i];
+                    useThisArray.push(pushElement); 
+                  }
+
+                }
+
+              });
+            
+            $('#titlespan').append("<span class='smallerblackarial'>" + practiceName +", Begin your practice session of " + numQ + " questions by clicking the 'Start Practice' button.").fadeIn(300);
+            $('#startButton').fadeIn(1000);
+              }
+
+         function play() {
+   
+                i = qNumber - 1;
+  
+               if(qNumber == numQ + 1) {
+
+                  practiceFinished()
+
+                } else {
+
+                $('#question').fadeIn(300);
+
+                //alert(useThisArray[i].ions+ useThisArray[i].ionCharge)
+
+                $('#questionIon').append("</br></br>"  +  useThisArray[i].ions + useThisArray[i].ionCharge);
+
+                var ionArrays = [useThisArray[i].ionName,useThisArray[i].ionNameA,useThisArray[i].ionNameB,useThisArray[i].ionNameC,useThisArray[i].ionNameD]
+                //alert(ionArrays[0], ionArrays[1])
+
+                  ionSymbol = useThisArray[i].ions + useThisArray[i].ionCharge;
+                  }
+
+                ans1 = ionArrays.splice(Math.floor(Math.random()*5),1)
+                //alert(ans1)
+                ans2 = ionArrays.splice(Math.floor(Math.random()*4),1)
+                //alert(ans2)
+                ans3 = ionArrays.splice(Math.floor(Math.random()*3),1)
+                //alert(ans3)
+                ans4 = ionArrays.splice(Math.floor(Math.random()*2),1)
+                //alert(ans4)
+                ans5 = ionArrays.splice(0,1)
+                //alert(ans5)
+        
+
+                $('#answerA').append(ans1).prop('disabled',false);
+                
+                 $('#answerB').append(ans2).prop('disabled',false);
+               
+                 $('#answerC').append(ans3).prop('disabled',false);
+               
+                 $('#answerD').append(ans4).prop('disabled',false);
+
+                 $('#answerE').append(ans5).prop('disabled',false);
+
+
+                 if(time!=0) {
+                   
+                  $('#clock').fadeIn(0);
+
+                  var deadline = Date.parse(new Date())+time
+                  //alert(deadline);
+                  initializeClock('clock',deadline)
+
+
+                 }
+
+                }
+
+                function getTimeRemaining(endtime) { 
+
+                    //alert('got to time remaining')
+                    //alert(endtime)
+
+                    var t = endtime - Date.parse(new Date());
+                    //alert(t)
+                    var tseconds = Math.floor( (t/1000) % 60 );
+                    //alert(tseconds)
+                    var tminutes = Math.floor( (t/1000/60) % 60 );
+                    //alert(tminutes)
+                    var thours = Math.floor( (t/(1000*60*60)) % 24 );
+                    //alert(thours)
+
+                   return {
+
+                    'total':t,
+                    'thours':thours,
+                    'tminutes':tminutes,
+                    'tseconds':tseconds
+
+                   };
+
+                  }
+
+                function initializeClock(id,endtime) {
+
+                    //alert('got to initialize clock');
+                    //alert(id);
+                    //alert(endtime);
+
+                  var clock = document.getElementById(id);
+                  //alert(clock);
+                  var hoursSpan = clock.querySelector('#hours');
+                  //alert(hoursSpan);
+                  var minutesSpan = clock.querySelector('#minutes');
+                  //alert(minutesSpan);
+                  var secondsSpan = clock.querySelector('#seconds');
+                  //alert(secondsSpan);
+                  
+                  function updateClock() {
+                    var t = getTimeRemaining(endtime);
+                    //alert(t)
+
+                    hoursSpan.innerHTML = ('0'+t.thours).slice(-2);
+                    minutesSpan.innerHTML = ('0'+t.tminutes).slice(-2);
+                    secondsSpan.innerHTML = ('0'+t.tseconds).slice(-2);
+
+                    if(t.total<=0) {
+                      
+                      qTimedOut()
+                      
+                      }
+                    }
+                    updateClock();
+                    timeInterval = setInterval(updateClock,1000);
+
+                  }
+
+                function qTimedOut() {
+
+                  clearInterval(timeInterval);
+                  //alert('got to qTimedOut')
+
+                  ans = "Timed Out"
+                  handleAnswer()
+
+                }
+            
+              
+
+       
+      
+
+        function handleAnswer(){
+
+          //alert('got to handle answer ' + ans)
+
+          qNumber = qNumber + 1
+
+          //alert("next question number " + qNumber)
+          $('#answerA').prop('disabled',true)
+          $('#answerB').prop('disabled',true)
+          $('#answerC').prop('disabled',true)
+          $('#answerD').prop('disabled',true)
+          $('#answerE').prop('disabled',true)
+          //alert(ans + ionName[i])
+
+          explanationIndex = useThisArray[i].explanation;
+
+
+
+          if(ans==useThisArray[i].ionName) {
+
+            correctAnswer();
+
+          } else { 
+
+            incorrectAnswer();
+
+          }
+
+        }
+
+        function correctAnswer() {
+
+          //alert("got to correct answer")
+
+           $('#correctAnswer').append("</br><span class='smallerblackarial'>You answered " + ans + ". </br> This is <span class='blue'>CORRECT</span>!</span></br>");
+           $('#correctAnswerSpan').fadeIn(500);
+
+           //alert('got to get explanation')
+
+           getExplanation();
+
+           $('#explanationText').append(explanationActual);
+
+          getTermWindows();
+           
+         }
+
+        function incorrectAnswer() {
+          //alert("got to incorrect Answer")
+         
+
+            correctAns = useThisArray[i].ionName;
+            //alert(correctAns)
+
+      
+
+          $('#incorrectAnswer').append("</br><span class='smallerblackarial'>You answered <span class='red'>" + ans + "</span>. </br> This is <span class='red'>INCORRECT</span>.</br>The correct answer is <span class='blue'>" + correctAns + "</span></span></br>");
+           $('#incorrectAnswerSpan').fadeIn(500);
+
+           getExplanation();
+           
+           $('#explanationText').append(explanationActual);
+
+           getTermWindows();
+
+        }
+
+        function getQuizTypeExp(a) {
+
+          
+
+          if (a === 2) {
+
+            actualQuizTypeExpHeader = "Ions you need to know if you are in a high school honors chemistry class:";
+            actualQuizTypeExp = quizTypeExplanationList[0];
+
+
+          }
+          if (a === 6) {
+
+            actualQuizTypeExpHeader = "Ions you need to know if you are in a high school honors chemistry class:";
+            actualQuizTypeExp = quizTypeExplanationList[1];
+
+
+          }
+
+          return actualQuizTypeExpHeader, actualQuizTypeExp;
+
+        }
+
+
+        function getExplanation() {
+
+          explanationIndex = parseInt(explanationIndex);
+
+          if (useThisArray[i].ionCharge === '\u207B') {
+            useThisCharge = '1-'
+          } else if (useThisArray[i].ionCharge === '\u00B2\u207B'){
+            useThisCharge = '2-'
+          } else if (useThisArray[i].ionCharge === '\u00B3\u207B'){
+            useThisCharge = '3-'
+          } else if (useThisArray[i].ionCharge === '\u2074\u207B'){
+            useThisCharge = '4-'
+          } else if (useThisArray[i].ionCharge === '\u2075\u207B'){
+            useThisCharge = '5-'
+          } else if (useThisArray[i].ionCharge === '\u2076\u207B'){
+            useThisCharge = '6-'
+          } else if (useThisArray[i].ionCharge === '\u2077\u207B'){
+            useThisCharge = '7-'
+          } else if (useThisArray[i].ionCharge === '\u2078\u207B'){
+            useThisCharge = '8-'
+          } else {
+            useThisCharge = useThisArray[i].ionCharge
+          }
+
+          
+
+          var explanationList = ["This ion is a <span id='monoatomic' class='red'>monoatomic</span> ion as indicated by having the symbol of only a single element with no subscript (<span style='font-weight:600'>" + useThisArray[i].ions + "</span>), and a <span id='cation' class='red'>cation</span> as indicated by its positive charge.</br></br>Because a cation will always be the first component of any <span id='binary' class='red'> binary ionic compound</span>, <span style='text-decoration:underline;font-weight:600'>the name of any monoatomic cation will always simply be the element name.</span></br></br>", //monoatomic cation 1 (0)
+
+            "If the cation is from group IA, IIA, or is Aluminum in IIIA, as is the case with this ion, (<span style='font-weight:600'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>), no Roman numerals indicating charge are necessary. ", //monoatomic cation 1a (1)
+
+            "However, if the ion is a transition metal or a post-transition metal, as is the case with this ion, (<span style='font-weight:600'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>), as the ion may have one of multiple oxidation states (charges), it is desirable that a Roman numeral representing the oxidation state (charge) be included in the name-<span style='font-weight:600'>" + useThisArray[i].ionName + "</span>", //monoatomic cation 1b (2)
+
+            "This ion is a <span id='monoatomic' class='red'>monoatomic</span> ion as indicated by having the symbol of only a single element with no subscript (<span style='font-weight: 600'>" + useThisArray[i].ions + "</span>), and an <span id='anion' class='red' >anion</span> as indicated by its negative charge.</br></br>An anion will always be the second component of any <span id='binary' class='red'> binary ionic compound.</span>  For all monoatomic anions the name is formed from the element name by dropping the last few letters of this name and adding the suffix <span style='font-weight: 600'>-ide</span>.  In this case, <span style='font-weight: 600'>" + useThisArray[i].ionName + "</span></br></br>There are no specific rules for how many letters to drop from the element name before adding -ide.  It is mainly based on what sounds best phonetically-you will pick up these names quickly.</br></br>  Because these ions only have a single oxidation state there is no need to further distinguish the ion names with Roman numerals as in the transition and post-transition metal cations.", //monoatomic anion (3)
+
+            "<span class='red'>NOTE</span>: The older 'Latin' system name for this ion is <span style='font-weight: 600'>" + useThisArray[i].latin + "</span>.  See the <span id='latin' class='blue' style='cursor:help'>Latin System</span> note (only from inside the explanation window) for further details.</br></br>", //monoatomic latin (4)
+
+             
+             "<a href='#specific'>Click here to jump directly to the explanation of the specific ion</a></br></br>This ion is a <span id='polyatomic' class='red'>polyatomic ion</span> as indicated by the fact that it is composed of more than one atom (in this case <span style='font-weight:600'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>).  <p style='margin:3%'>The atoms composing polyatomic ions are usually from different elements but may also be from the same element.</p>Remember that the atoms composing these ions are covalently bonded together and we recognize the whole group of atoms as somehow being special.  <p style='margin:3%'>We don't refer to the atoms of the group individually, but give the group a special name (in this case <span style='font-weight:600'>'" + useThisArray[i].ionName + "'</span>)</p><p style='margin:3%'> and say that the ion, as a unit, exhibits the stated charge (in this case <span style='font-weight:600'>" + useThisCharge + "</span>).</p>  We can divide polyatomic ions into four main groups: </br></br> 1) <span id='oxyanions' class='red'>Oxyanions</span></br> 2) <span id='nonOxyanions' class='red'>Non-oxy polyatomic ions</span></br> 3) <span id='singleElementPA' class='red'>Single element polyatomic ions</span></br>4) <span id='organicPA' class='red'>Organic polyatomic ions</span></br></br>",  //polyatomic general (5)
+
+            "<span style='font-weight:600;'>In this case, the polyatomic ion is an</span> <span class='red'>oxyanion</span>, an ion that contains one or more central non-oxygen atoms surrounded by one or more oxygen atoms, formed when an oxygen containing acid (an oxoacid) dissociates one more hydrogen ions.  <p style='margin:3%'>The central atom(s) can be from almost any element, metal or non-metal.</p><p style='margin:3%'>However, those involving non-metal atoms are more common, are more standardized in their naming, and the ones you need to know.</p>  <p style='margin:3%'>Less common oxyanions, including those with metal central atoms and a few with non-metal central atoms, are less standardized, require more detailed knowledge of oxidation states and will be explained individually.</p><p style='margin:3%'> <a href='#naming'>Naming</a> and <a href='#charges'>assigning of charges</a> for the type of oxyanion in this question are considered below.</p></br>", //polyatomic oxyanion general (6)
+
+             "<a name='naming'></a><a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Naming</span></br></br><span style='font-weight:600;'> In this case the central atom is a</span><span class='red'> non-metal atom that forms a common oxyanion</span> for which the naming can be explained in a standardized manner.  These common oxyanions will not be described individually, but the general naming and assigning of charges is considered as a group.  The individual ions are listed in a table that follows.</br></br>We consider four possible situations (click to jump to desired section): <p style='margin:3%'><p style='margin:3%'><a href='#hal'>If the central atom is a halogen</a></p><p style='margin:3%'><a href='#period2'>If the central atom is a non-halogen from period 2</a></p><p style='margin:3%'><a href='#period3+'>If the central atom is a non-halogen from period 3+</a><p style='margin:3%'><a href='#addhyd'>Adding hydrogen atom(s) to an oxyanion</p></a></p><p style='margin:3%'><a href='#summary'>Summary table of common oxyanions</a></span></p><span style='font-weight:600;text-decoration:underline'><a name='hal'></a>If the central atom is a halogen atom</span>, Cl, Br, I or At (F does not form oxyanions because it cannot have a positive oxidation state) it means that it can form one of four different oxyanions-it can have either 1, 2, 3, or 4 oxygen atoms surrounding it.<p style='margin:3%'><span style='font-weight:600;'>If the central atom is surrounded by <span class='red'> 4 oxygen atoms</span></span> the name of the ion begins with the prefix <span style='font-weight:600;'>per-</span> and ends with the suffix <span style='font-weight:600;'>–ate</span>.</p><p style='margin:3%'><span style='font-weight:600;'>If the central atom is surrounded by <span class='red'> 3 oxygen atoms</span></span> the name of the ion begins with no prefix and ends with the suffix <span style='font-weight:600;'>–ate</span>.</p><p style='margin:3%'><span style='font-weight:600;'>If the central atom is surrounded by <span class='red'> 2 oxygen atoms</span></span> the name of the ion begins with no prefix and ends with the suffix <span style='font-weight:600;'>–ite</span>.</p> <p style='margin:3%'><span style='font-weight:600;'>If the central atom is bonded to only <span class='red'> 1 oxygen atom</span></span> the name of the ion begins with the prefix <span style='font-weight:600;'>hypo-</span> and ends with the suffix <span style='font-weight:600;'>–ite</span>.</p> <a name='period2'></a><span style='font-weight:600; text-decoration:underline'>If the central atom is a non-halogen from period two</span> (either C or N), it could either be surrounded by:<p style='margin:3%'><span style='font-weight:600;'><span class='red'>two oxygen atoms</span></span>, in which case the name usually ends with the suffix <span style='font-weight:600;'>-ite</span>, or</p><p style='margin:3%'><span style='font-weight:600;'><span class='red'>three oxygen atoms</span></span>, in which case the name usually ends with the suffix <span style='font-weight:600;'>-ate</span>.</p> <a name='period3+'></a><span style='font-weight:600; text-decoration:underline;'>If the central atom is a non-halogen from any other period</span>, it could be surrounded by:<p style='margin:3%'> <span style='font-weight:600;'><span class='red'>three oxygen atoms</span></span>, in which case the name usually ends with the suffix <span style='font-weight:600;'>-ite</span>, or </p><p style='margin:3%'><span style='font-weight:600;'><span class='red'>four oxygen atoms</span></span>, in which case the name usually ends with the suffix <span style='font-weight:600;'>-ate</span>. </p> <span style='font-weight:600; text-decoration:underline'><a name='addhyd'></a>Addition of hydrogen atom(s)</span>-If an oxyanion has a greater negative charge than 1-, hydrogen ions may become bonded to surrounding oxygens (each making the overall charge less negative by 1) until the charge is -1.  The term 'Hydrogen' is then placed in front of the name of the oxyanion to create a new name.  <p style='margin:3%'>For example, one or two hydrogens could become bonded to the phosphate ion (PO\u2084\u00B3\u207B) to give <span style='font-weight:600;'>Hydrogen Phosphate</span> (<span class='red'>HPO\u2084\u00B2\u207B</span>) and <span style='font-weight:600;'>Dihydrogen Phosphate</span> (<span class='red'>H\u2082PO\u2084\u207B</span>)</p>If a common oxyanion has a 'hydrogen added' variant you should know these additional ions.</br></br><a name='summary'></a>The above rules are summarized in the following table (including 'hydrogen added' variants).</br></br>Note: Not all possible oxyanions described by the above rules actually exist, or only exist under special circumstances, and so, are not included in the table-in particular, the phosphite ion does not exist in the form described, and the carbonite ion is very unusual and is considered in another section.</br></br><table style='font-size'><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Central Atom (Oxidation State)</th><th>Element Column</th><th>Element Period</th><tr><td>Perchlorate</td><td>ClO\u2084\u207B</td><td>-1</td><td>Cl (VII)</td><td>7A (Halogens)</td><td>3</td></tr><tr><td>Chlorate</td><td>ClO\u2083\u207B</td><td>-1</td><td>Cl (V)</td><td>7A (Halogens)</td><td>3</td></tr><tr><td>Chlorite</td><td>ClO\u2082\u207B</td><td>-1</td><td>Cl (III)</td><td>7A (Halogens)</td><td>3</td></tr><tr><td>Hypochlorite</td><td>ClO\u207B</td><td>-1</td><td>Cl (I)</td><td>7A (Halogens)</td><td>3</td></tr><tr><td>Perbromate</td><td>BrO\u2084\u207B</td><td>-1</td><td>Br (VII)</td><td>7A (Halogens)</td><td>4</td></tr><tr><td>Bromate</td><td>BrO\u2083\u207B</td><td>-1</td><td>Br (V)</td><td>7A (Halogens)</td><td>4</td></tr><tr><td>Bromite</td><td>BrO\u2082\u207B</td><td>-1</td><td>Br (III)</td><td>7A (Halogens)</td><td>4</td></tr><tr><td>Hypobromite</td><td>BrO\u207B</td><td>-1</td><td>Br (I)</td><td>7A (Halogens)</td><td>4</td></tr><tr><td>Periodate</td><td>IO\u2084\u207B</td><td>-1</td><td>I (VII)</td><td>7A (Halogens)</td><td>5</td></tr><tr><td>Iodate</td><td>IO\u2083\u207B</td><td>-1</td><td>I (V)</td><td>7A (Halogens)</td><td>5</td></tr><tr><td>Iodite</td><td>IO\u2082\u207B</td><td>-1</td><td>I (III)</td><td>7A (Halogens)</td><td>5</td></tr><tr><td>Hypoiodite</td><td>IO\u207B</td><td>-1</td><td>I (I)</td><td>7A (Halogens)</td><td>5</td></tr><tr><td>Perastatate</td><td>AtO\u2084\u207B</td><td>-1</td><td>At (VII)</td><td>7A (Halogens)</td><td>6</td></tr><tr><td>Astatate</td><td>AtO\u2083\u207B</td><td>-1</td><td>At (V)</td><td>7A (Halogens)</td><td>6</td></tr><tr><td>Astatite</td><td>AtO\u2082\u207B</td><td>-1</td><td>At (III)</td><td>7A (Halogens)</td><td>6</td></tr><tr><td>Hypoastatite</td><td>AtO\u207B</td><td>-1</td><td>At (I)</td><td>7A (Halogens)</td><td>6</td></tr><tr><td>Sulfate</td><td>SO\u2084\u00B2\u207B</td><td>-2</td><td>S (VI)</td><td>6A (Chalcogens)</td><td>3</td></tr><tr><td>Sulfite</td><td>SO\u2083\u00B2\u207B</td><td>-2</td><td>S (IV)</td><td>6A (Chalcogens)</td><td>3</td></tr><tr><td>Hydrogen sulfate</td><td>HSO\u2084\u207B</td><td>-1</td><td>S (VI)</td><td>6A (Chalcogens)</td><td>3</td></tr><tr><td>Hydrogen sulfite</td><td>HSO\u2083\u207B</td><td>-1</td><td>S (IV)</td><td>6A (Chalcogens)</td><td>3</td></tr><tr><td>Selenate</td><td>SeO\u2084\u00B2\u207B</td><td>-2</td><td>Se (VI)</td><td>6A (Chalcogens)</td><td>4</td></tr><tr><td>Selenite</td><td>SeO\u2083\u00B2\u207B</td><td>-2</td><td>Se (IV)</td><td>6A (Chalcogens)</td><td>4</td></tr><tr><td>Hydrogen selenate</td><td>HSeO\u2084\u207B</td><td>-1</td><td>Se (VI)</td><td>6A (Chalcogens)</td><td>4</td></tr><tr><td>Hydrogen selenite</td><td>HSeO\u2083\u207B</td><td>-1</td><td>Se (IV)</td><td>6A (Chalcogens)</td><td>4</td></tr><tr><td>Nitrate</td><td>NO\u2083\u207B</td><td>-1</td><td>N (V)</td><td>5A (Pnictogens)</td><td>2</td></tr><tr><td>Nitrite</td><td>NO\u2082\u207B</td><td>-1</td><td>N (III)</td><td>5A (Pnictogens)</td><td>2</td></tr><tr><td>Phosphate</td><td>PO\u2084\u00B3\u207B</td><td>-3</td><td>P (V)</td><td>5A (Pnictogens)</td><td>3</td></tr><tr><td>Hydrogen phosphate</td><td>HPO\u2084\u00B2\u207B</td><td>-2</td><td>P (V)</td><td>5A (Pnictogens)</td><td>3</td></tr><tr><td>Diydrogen phosphate</td><td>H\u2082PO\u2084\u207B</td><td>-1</td><td>P (V)</td><td>5A (Chalcogens)</td><td>3</td></tr><td>Carbonate</td><td>CO\u2083\u00B2\u207B</td><td>-2</td><td>C (IV)</td><td>4A</td><td>2</td></tr><tr><td>Hydrogen Carbonate (Bicarbonate)</td><td>HCO\u2083\u207B</td><td>-1</td><td>C (IV)</td><td>4A</td><td>2</td></tr></table></br></br><a name='charges'></a><span style='font-weight:600; text-decoration:underline;'>Assigning charges</span></br></br> The charges for these types of oxyanions vary depending on the oxidation state of the central atom and the number of oxygens-you can either memorize the charges (as shown in the table above), or, LEARN HOW THEY ARE DETERMINED USING OXIDATION STATES SO YOU DON'T HAVE TO MEMORIZE THEM.</br></br>For <span style='font-weight:600;'>ANY</span> oxyanion, the oxidation state of the central atom will always be positive, while the oxidation state of <span style='font-weight:600; text-decoration:underline;'>EACH</span> of the surrounding oxygens will always be -2.</br></br>  <span style='font-weight:600;'>To determine the contribution of the oxygens to the overall charge of the ion</span>- <p style='margin:3%'>Simply multiply the number of oxygens by -2 (eg, if there are 3 oxygens, the contribution of negative charges is 6-).</p><p style='margin:3%'>  As these ions are anions, the amount of negative charge will always be greater than the amount of positive charge from the central atom.</p><span style='font-weight:600;'>The positive oxidation state of the central atom can be determined as follows</span>- <p style='margin:3%'>Remember that for each central atom, <span style='font-weight:600;'>for halogens</span> there can be <span class='red'>four different oxyanions</span> and <span style='font-weight:600;'>for other non-metal central atoms</span> there can be <span class='red'>two oxyanions</span>.  This is because, for each different oxyanion, the central atom is at a different positive oxidation state, requiring a different number of oxygens for maximum stability.</p><span style='font-weight:600;'>The highest oxidation state</span> for a given central atom will be a value that is equal to the number of valence electrons the atom normally has- <p style='margin:3%'><span style='font-weight:600;'>For elements in column 7A</span> (Cl, Br, I and At), the highest oxidation state will be <span class='red'>+7</span></p><p style='margin:3%'> <span style='font-weight:600;'>For elements in column 6A </span>(S, Se and Te), the highest oxidation state will be <span class='red'>+6</span></p><p style='margin:3%'> <span style='font-weight:600;'>For elements in column 5A</span> (N, P and As), the highest oxidation state will be <span class='red'>+5</span></p><p style='margin:3%'><span style='font-weight:600;'>For elements in column 4A</span> (C), the highest oxidation state will be <span class='red'>+4</span></p><p style='margin:3%'> These correspond to the <span style='font-weight:600;'>per- -ate form</span> for halogen central atoms and the <span style='font-weight:600;'>-ate form</span> for non-halogen central atoms.</p></br><span style='font-weight:600;'>For halogens</span>, there will be three additional oxidation states, <span class='red'>+5</span>,<span class='red'> +3</span>, and <span class='red'>+1</span>, corresponding to the <span style='font-weight:600;'>-ate, -ite, and hypo- -ite forms</span> respectively.  </br></br><span style='font-weight:600;'>For non-halogens</span>, there will be a single lesser oxidation state that is two charges less than the higher state, and these all correspond to the <span style='font-weight:600;'>-ite forms</span> of the respective oxyanions.  <p style='margin:3%'><span style='font-weight:600;'>For column 6A elements</span> this would be <span class='red'>+4</span>,</p><p style='margin:3%'> <span style='font-weight:600;'>for column 5A elements,</span> <span class='red'>+3</span>, and</p><p style='margin:3%'> <span style='font-weight:600;'>for column 4A elements</span>, <span class='red'>+2</span>.</p> <span style='font-weight:600;'>To turn these values into the charge of the oxyanion</span>, subtract the number of negative charges for the corresponding oxygens from the positive oxidation value of the central atom.</br></br>  I have given you the oxidation states for all of the central atoms in the table above.  Go back to these and see if you can confirm the correct charge of the ion based on this oxidation state and the number of oxygen atoms.", //polyatomic oxyanion non-metal (7)
+
+            
+            "<span style='font-weight:600;'>This is an example of a </span><span class='red'>single element polyatomic ion</span>. There are no specific rules for naming this type of polyatomic ion-the naming and assigning of charge is based only on an understanding of covalent bonding between atoms of the particular element involved.  For the most part this means memorization of the names and charges of the specific ions, as the chemistry involved in understanding why these ions occur is more advanced.</br></br>", //polyatomic single elment general (8)
+
+            "There are three main polyatomic ions composed only of oxygen atoms:</br></br><span class='red'>Peroxide Ion</span> <span style='font-weight:600;'>(O\u2082\u00B2\u207B)</span>: This polyatomic ion contains two single bonded oxygen atoms, each with filled valence shells giving the ion an overall charge of 2-.  This means that the oxidation state of oxygen within this ion is -1.  </br></br><span class='red'>Superoxide Ion</span> <span style='font-weight:600;'>(O\u2082\u207B)</span>: This polyatomic ion contains two single bonded oxygen atoms.  One oxygen atom contains a filled valence shell while the other is deficient by one electron.  This requires resonance to explain.  The overall charge of this ion is 1-.  This means that the oxidation state of oxygen within this ion is -1/2.  </br></br><span class='red'>Ozonide Ion</span> <span style='font-weight:600;'>(O\u2083\u207B)</span>: This polyatomic ion contains three single bonded oxygen atoms, two with filled valence shells and one which is deficient by one electron.  This requires resonance to explain. The overall charge of this ion is -1.  This means that the oxidation state of oxygen within this ion is -1/3.", //polyatomic single element oxygen (9)
+
+            "<a name='naming'></a><span style='font-weight:600;text-decoration:underline;'>Naming</span></br></br><span style='font-weight:600;'> This oxyanion involves either-<p style='margin:3%'>a metal central atom,</p> <p style='margin:3%'>a less common non-metal central atom, or</p> <p style='margin:3%'>is in some other way more complicated</p></span> <p style='margin:5%'>than the basic system for naming common oxyanions.</p> In particular, the naming and assigning of charges for these oxyanions involves knowledge of oxidations states of the central atoms.</br></br> (<a href='#specific'>Click here to jump directly to the explanation of the specific ion</a>) </br></br> Understand that when bonding with oxygen in a covalent bond, most elements that act as central atoms can exist at two or more possible positive oxidation states. <p style='margin:3%'>Because oxygen is more electronegative than any possible central atom (except fluorine-which is why fluorine does not form oxyanions), in the electron accounting process electron pairs forming bonds between surrounding oxygens and the central atom will always be assigned to oxygens. In general, to determine the number of electrons assigned to the central atom, the number of bonds formed by the central atom according to the Lewis structure is subtracted from the valence of the atom.  <span style='display:block;margin:3%'><span style='font-weight:600;text-decoration:underline;font-style:italic'>For example</span>, in the ClO\u2083\u207B ion (chlorate), the accepted resonance Lewis structures show that Cl is double bonded to two oxygens and single bonded to one oxygen, with a single unshared pair, meaning that five of the chlorine atom's seven valence electrons are assigned to oxygen, leaving only two assigned to the chlorine atom. As the chlorine atom would be 'missing' five electrons, its oxidation state would be +5.</br></br>For oxyanions, you could also just count the electrons in remaining unshared pairs to determine the number of electrons assigned to the central atom, but that only works because for oxyanions, bonded electrons will always be assinged to the oxygen atoms.</span> <p style='margin:4%'><span style='font-weight:600;text-decoration:underline;'>To quickly determine the oxidation state of the central atom of any oxyanion</span>, multiply the number of surrounding oxygens by 2 and subtract the absolute value of the number of charges on the ion.  If hydrogen atoms are added to the oxyanion, subtract one more charge for each hydrogen.  (Note-this will also work if there is more than one central atom as long as the oxyanion is a 'dimer'-see below under modifications-and has not been formed by the substitution of a second central atom for an oxygen, in which case the central atoms may be at different oxidations states.) <span style='display:block;margin:3%'><span style='font-weight:600;text-decoration:underline;font-style:italic'>For example</span>, for the phosphate ion (PO\u2084\u00B3\u207B), there are four oxygens-multiply this by two to get 8.  Then subtract the absolute value of the ion charge which is 3.  The oxidation state of the P atom is +5.</span><p style='margin:4%'><span style='font-weight:600;text-decoration:underline;'>To rapidly determine probable Lewis structures</span>-the structure of the vast majority of oxyanions (but not all) leaves the central atom with a formal charge of 0.  This means that the combination of the number of bonds to surrounding oxygens plus the number of unshared electrons must equal the valence of the central atom.  As all bonded electrons will be assigned to surrounding oxygens, the oxidation state of the central atom will tell us how many bonds the central atom must participate in.  The difference between these two numbers will be the number of unshared electrons.  The number of bonds must be divided up between the number of oxygens so the number of single and double bonds in the Lewis structure can be easily reasoned.<span style='display:block;margin:3%'><span style='font-weight:600;text-decoration:underline;font-style:italic'>For example</span>, for the sulfite ion (SO\u2083\u00B2\u207B), the oxidation state of sulfur is +4 (6 for the oxygens minus 2 for the ion charge)  The valence of sulfur is 6, so, as the oxidation of sulfur in this case is +4, sulfur must still be assigned 2 electrons and the only way this is possible is if they are an unshared pair.  As 4 electrons were 'removed' from the sulfur valence by bonding with oxygen, these must be split up between the three bonded oxygens, meaning one double bond and two single bonds in the Lewis structure (these will often require invoking of resonance strucures).</p></p><p style='margin:3%'> Given the above reasoning, the number of possible surrounding oxygens will be related to the particular oxidation state of the central atom. </p> Ultimately, then, the set of prefixes and suffixes given to oxyanions depends on the specific oxidation state and corresponding number of surrounding oxygens-we can make some general statements about four groups of oxyanions (click to jump to desired section): <p style='margin:3%'><a href='#group7A'>Oxyanions of Group 7A Elements</a></p><p style='margin:3%'><a href='#otherNonMetals'>Oxyanions of Other Non-Metals</a></p><p style='margin:3%'><a href='#postTransMetals'>Oxyanions of Post-transition Metals</a></p><p style='margin:3%'><a href='#transMetals'>Oxyanions of Transition Metals</a></p><a name='group7A'></a><span style='font-weight:600;text-decoration:underline;'>For group 7A elements (Cl, Br, I, At)</span>: these elements have seven valence electrons and have the possibility of bonding with up to four oxygen atoms-<p style='margin:3%'> If the central atom <span style='font-weight:600;'>bonded with four oxygens</span> (requiring resonance between four Lewis structures containing 3 double bonds and a single bond to provide a formal charge of 0 on the central atom) all of the electrons would be assigned to the oxygens giving the cntral atom a <span style='font-weight:600;'>+7 oxidation state</span>.  This would be assigned the <span class='red'>'per-' prefix</span> and <span class='red'>'ate' suffix</span>. </p><p style='margin:3%'> If the central atom <span style='font-weight:600;'>bonded with three oxygens</span> (requiring resonance between three Lewis structures containing 2 double bonds, a single bond, and an unbonded electron pair to provide a formal charge of 0 on the central atom), five of the central atom electrons would be assigned to the oxygens, resulting in a <span style='font-weight:600;'>+5 oxidation state</span> for the central atom.  This would be assigned <span class='red'>no prefix</span> and the <span class='red'>'-ate' suffix</span>. </p><p style='margin:3%'> If the central <span style='font-weight:600;'>bonded with two oxygens</span> (requiring resonance between two Lewis structures containing a double bond, a single bond, and two unbonded electron pairs to provide a formal charge of 0 on the central atom), three of the central atom electrons would be assigned to the oxygens, resulting in a <span style='font-weight:600;'>+3 oxidation state</span> for the central atom.  This would be assigned <span class='red'>no prefix</span> and the <span class='red'>'-ite' suffix</span>.</p><p style='margin:3%'>  If the central atom <span style='font-weight:600;'>bonded with a single oxygen</span> (requiring a Lewis structures containing a single bond and three unshared electron pairs to provide a formal charge of 0 on the central atom), one of the central atom electrons would be assigned to the oxygen, resulting in a <span style='font-weight:600;'>+1 oxidation state</span> for the central atom.  This would be assigned the <span class='red'>'hypo-' prefix</span> and the <span class='red'>'-ite' suffix</span>.</p><p style='margin:3%'>  All group 7A elements (except fluorine) are stated to follow this pattern. </p> <a name='otherNonMetals'></a><span style='font-weight:600;text-decoration:underline;'>For other non-metals</span>: we generally recognize two main oxidations states. <p style='margin:3%'> A <span style='font-weight:600;'>higher oxidation state</span> that is equivalent to the number of valence electrons for the particular element, for which we assign the <span class='red'>'-ate'</span> suffix.</p> <p style='margin:3%'>A <span style='font-weight:600;'>lower oxidation state</span>, a value that is two less than the higher oxidation state, corresponding to having one less surrounding oxygen atom than the higher oxidation state atom, for which we assign the <span class='red'>'-ite'</span> suffix.</p>  Now also recognize that one of the reasons there are so many oxyanions is that bonding with oxygen provides the opportunity for electron delocalization that creates additional stability for these structures. <p style='margin:3%'> This means that <span style='font-weight:600;'>for period three and above non-metals</span> (Si, P, S, As, Se, and Te), the <span class='red'>-ate form would contain four oxygens</span> while the <span class='red'>-ite form would contain three oxygens</span>. <p style='margin:5%'> This is stated to be because these elements can be hypervalent through the formation of hybrid orbitals involving d-orbitals, reflected by the formaiton of resonant Lewis structures containing more than four shared pairs of electrons around the central atom. </p><p style='margin:5%'> These structures also usually reflect a formal charge of 0 for the central atom. </p></p> <p style='margin:3%'><span style='font-weight:600;'>For period two non-metals</span> (B, C, and N), because these elements are stated not to be able to become hypervalent, in order to create the electron delocalization that provides increased stability of these ions, the '-ate' form is restricted to three surrounding oxygens while the '-ite' form contains two oxygens.</p> <p style='margin:3%'>For group 6A non-metals (S, Se, and Te), the two oxidation states are +6 and +4.</p>  <p style='margin:3%'>For group 5A non-metals (N, P, and As), the two oxidation states are +5 and +3.</p><p style='margin:3%'>  For group 4A non-metals (C and Si), the oxidation states are +4 and +2.</p><p style='margin:3%'>  For the group 3A non-metal Boron, the oxidation states would be +3 and +1.</p>  <span style='font-weight:600;'>Recognize that not all possible oxyanion structures fitting this pattern are necessarily observed for each oxidation state, and that some oxyanion structures that don't comply with this pattern may also be observed.  Several possible modifications of this system are noted below. Specific oxyanions of each element are discussed in the explanation for that element's oxyanions (<a href='#specific'>click to go there now</a>) .</span>. </br></br> <a name='postTransMetals'></a><span style='font-weight:600;text-decoration:underline;'>Post-transition metals</span> (Ga, Ge, In, Sn, Sb, Tl, Pb, Bi and Po) have two oxidation states available to them by virtue of the fact that in losing valence electrons, the elements could either just lose the valence electrons present in the their outer p orbital, or they could lose these electrons plus the two valence electrons in the outer s orbital.  <p style='margin:3%'>The group 6A metal Po could either have an oxidation state of +6 or +4.</p><p style='margin:3%'> The group 5A metals (Sb and Bi) could either have an oxidation state of +5 or +3.</p><p style='margin:3%'>  The group 4A metals (Ge, Sn, and Pb) could either an have oxidation state of +4 or +2.</p>  <p style='margin:3%'>The group 3A metals (Ga, In, Tl) could either have the +3 or + 1 oxidation state.</p>  <p style='margin:3%'>Although technically not a post-transition element, the group 3A metal Al is stated to only exhibit an oxidation state of +3.</p><span style='font-weight:600;'>The list of observed oxyanions of the post-transition metals appears to be much more limited than those of the non-metals, and several of these metals appear not to have well-characterized oxyanions of any type.  Most oxyanions formed by this group of metals are of the higher oxidation state and take the '-ate' suffix.  Where they exist, oxyanions formed by lower oxidation state central atoms take the '-ite' suffix.  However, as noted below, the names of the oxyanions formed by these elements are often modified in other ways. Specific oxyanions of each element are discussed in the explanation for that element's oxyanions (<a href='#specific'>click to go there now</a>). </span></br></br><a name='transMetals'></a><span style='font-weight:600;text-decoration:underline;'>Transition metals</span>-While many transition metals will just form oxyanions at a single high oxidation state, which will be designated by the '-ate' suffix, some can form oxyanions at multiple oxidation states (for example, manganese has oxyanions with at least four different oxidation states) and the '-ate'/'-ite' system cannot suffice to completely designate these.  <p style='margin:3%'>To accomodate naming these oxyanions, IUPAC recommends using the -ate suffix for all of these oxyanions followed by the Roman numeral oxidation state of the anion in parentheses.</p><p style='margin:3%'>  Where there appears to be significant compliance with this in the literature, this application will follow the IUPAC recommendations.  </p><p style='margin:3%'>However, where traditional ion names still appear to predominate, this application will use the accepted common terms.</p>Specific oxyanions of each element are discussed in the explanation for that element's oxyanions (<a href='#specific'>click to go there now</a>).</br></br><span style='font-weight:600;text-decoration:underline;'>Modifications of the per-/-ate, -ate, -ite, hypo-/-ite system</span>  </br></br>Now recognize that this system can be modified in one of three major ways (click to jump to the desired section)-we can have:<p style='margin:3%'><a href='#multioxynumber'>Multiple numbers of surrounding oxygens for a given oxidation state</a></p><p style='margin:3%'><a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a>.</p><p style='margin:3%'><a href='#replacement'>Replacement of a surrounding oxygen by another atom</a></p><a name='multioxynumber'></a></span><span style='font-weight:600;'>Multiple numbers of surrounding oxygens for a given oxidation state</span>-For many central atoms a given oxidation state may be associated with more than one number of surrounding oxygen atoms.  <p style='margin:3%'>For example, Arsenic (As) (which has five valence electrons) has +5 and +3 as its main oxidation states.<p style='margin:6%'>  We are aware that arsenate (AsO\u2084\u00B3\u207B) and arsenite (AsO\u2083\u00B3\u207B) would be its common oxyanions.</p></p><p style='margin:3%'>  However, each of these oxidation states is also associated with a second oxyanion that has one less oxygen.  <p style='margin:6%'>As(V) also has an oxyanion with 3 oxygens (AsO\u2083\u207B)</p><p style='margin:5%'> and As(III) has an oxyanion with 2 oxygens (AsO\u2082\u207B).</p></p>  We need a way to name these as distinct from the common forms.  <p style='margin:3%'>We usually use the prefix <span class='red'>'meta'</span> to designate the oxyanion of a given oxidation state with the lowest number of oxygens.</p><p style='margin:3%'>We usually us the prefix <span class='red'>'ortho'</span> to designate the oxyanion with the higher number of oxygens of a given state.</p><p style='margin:3%'>  So, <span style='font-weight:600;'>AsO\u2083\u207B</span> is called <span class='red'>metaarsenate</span> and <span style='font-weight:600;'>AsO\u2082\u207B</span> is called <span class='red'>metaarsenite</span>.</p>  <p style='margin:3%'>This also means that <span style='font-weight:600;'>AsO\u2084\u00B3\u207B</span> and <span style='font-weight:600;'>AsO\u2083\u00B3\u207B</span> should be called <span class='red'>orthoarsenate</span> and <span class='red'>orthoarsenite</span>, respectively.</p>(Note: In many situations the prefixes meta and ortho have been applied to repeating 'units' of the central atom and associated oxygens that make up part of a more complex crystalline structures of specific minerals, and so in some instances do not represent actual discrete anions.  Attempts have been made to exclude these as part of this application, or at least indicate the possibility that it is not clear a particular formula represents a true oxyanion.)  However, it may not be entirely clear from source material when this is the case.  A few structures included in this app as anions may not actually be.) </br></br>Also, be aware that hydrogens can be added to these additional oxyanions in the same way they can be added to the common oxyanions to form 'hydrogen' versions of the oxyanion.</br></br><a name='dimer'></a><span style='font-weight:600;'>Combination of individual oxyanions to form dimers</span>-For most central atoms of oxyanions, individual oxyanions can be joined together through a common oxygen atom to form larger oxyanions.  <p style='margin:3%'>If two oxyanions are joined in this way it is called a <span class='red'>dimer</span>.</p> <p style='margin:3%'> Much larger structures can be formed but we will only consider dimers.</p> There are two possible ways to name these combination versions of oxyanions. <p style='margin:3%'> We can simply add the prefix 'di-' to the name. <p style='margin:6%'> For example, we have the disulfate (S\u2082O\u2087\u00B2\u207B) and disulfite (S\u2082O\u2085\u00B2\u207B) ions.</p> Or, because many of these ions form under conditions of heating, they may also be given the prefix of 'pyro-',<p style='margin:6%'> so we have pyrotellurate (Te\u2082O\u2087\u00B2\u207B) and pyrotellurite (Te\u2082O\u2085\u00B2\u207B).</p></p>  Again, these terms are applied inconsistently so it is more a matter of learning what each term means when you see it rather than trying to determine what a specific ion is supposed to be named.</br></br><a name='replacement'></a><span style='font-weight:600;'>Replacement of a surrounding oxygen by another atom</span>-Some oxyanions containing central atoms from group 6A elements can have a surrounding oxygen replaced by another group 6A element, as these atoms can have the same -2 oxidation state as the oxygen atom. <p style='margin:3%'>This application will only consider the situation in which one of the oxygen atoms surrounding sulfur oxyanions is replaced by a sulfur atom, or another sulfur oxyanion. </p> The following oxyanions result: <p style='margin:3%'>Replacement of a <span style='font-weight:600;'>sulfite</span> oxygen with a <span style='font-weight:600;'>sulfur atom</span>: <span class='red'>Thiosulfite (S\u2082O\u2082\u00B2\u207B)</span></p><p style='margin:3%'>Replacement of a <span style='font-weight:600;'>sulfate</span> oxygen with a <span style='font-weight:600;'>sulfur atom</span>: <span class='red'>Thiosulfate (S\u2082O\u2083\u00B2\u207B)</span></p><p style='margin:3%'>Replacement of a <span style='font-weight:600;'>sulfite</span> oxygen with a <span style='font-weight:600;'>sulfite ion</span>: <span class='red'>Dithionite (S\u2082O\u2084\u00B2\u207B)</span></p><p style='margin:3%'>Replacement of a <span style='font-weight:600;'>sulfate</span> oxygen with a <span style='font-weight:600;'>sulfite ion</span>: <span class='red'>Disulfite (S\u2082O\u2085\u00B2\u207B)</span></p><p style='margin:3%'>Replacement of a <span style='font-weight:600;'>sulfate</span> oxygen with a <span style='font-weight:600;'>sulfate ion</span>: <span class='red'>Dithionate (S\u2082O\u2086\u00B2\u207B)</span></p></br><a name='charges'></a><span style='font-weight:600;text-decoration:underline;'>Assigning Charges </span></br></br>Charges for more complex oxyanions are assigned in the same way charges for standard oxyanions are assigned.  The number of charges related to surrounding oxygens (or other surrounding particles) is subtracted from the positive charges related to the positive oxidation state(s) of central atom(s).</br></br>", //polyatomic oxoanion non-common general (10)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Sulfur Oxyanions</span></br></br><span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below.</span> </br></br> In addition to the common sulfur oxyanions, (<span class='red'>Sulfite</span> and <span class='red'>Sulfate</span>), the following more complex sulfur oxyanions exist: <p style='margin:3%'><span style='font-weight:600;'>Five oxygen 'replacement' oxyanions</span> (<span class='red'>Thiosulfite</span>, <span class='red'>Thiosulfate</span>, <span class='red'>Dithionite</span>, <span class='red'>Disulfite</span>, and <span class='red'>Dithionate</span>). See the <a href='#replacement'>Replacement of a surrounding oxygen by another atom</a> section above for further discussion of these.</p><p style='margin:3%'><span style='font-weight:600;'>One Sulfur(VI) 'dimer' oxyanion</span> (<span class='red'>Disulfate</span>). See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.</p> <p style='margin:3%'><span style='font-weight:600;'>Two 'peroxy' sulfur oxyanions</span> (<span class='red'>Peroxomonosulfate</span> and <span class='red'> Peroxydisulfate). <p style='margin:5%'>The <span class='red'>peroxomonosulfate ion</span> replaces one of the surrounding oxygen atoms with a peroxide ion.  As this ion has a -2 charge, the overall charge of the ion does not change.  The formula becomes <span class='red'>SO\u2085\u00B2\u207B.</p><p style='margin:5%'>The <span class='red'>peroxydisulfate ion</span> replaces the oxygen atom bridging the two sulfate ion with a peroxide ion.  As this ion has a -2 charge, the overall charge of the ion does not change.  The formula becomes <span class='red'>S\u2082O\u2088\u00B2\u207B.</p></p><span style='font-weight:600;'>Sulfur oxyanions also include the following 'hydrogen added' variants: </span><span class='red'>Hydrogen Sulfite</span>, <span class='red'>Hydrogen Sulfate</span>, <span class='red'>Hydrogen Thiosulfate</span>, <span class='red'>Hydrogen Disulfate</span>, <span class='red'>Hydrogen Peroxomonosulfate</span>, and <span class='red'>Hydrogen Peroxydisulfate</span>. </br></br>The sulfur oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Sulfur Oxidation State</th><tr><td>Sulfite</td><td>SO\u2083\u00B2\u207B</td><td>-2</td><td>S(IV)</td></tr><tr><td>Hydrogen sulfite</td><td>HSO\u2083\u207B</td><td>-1</td><td>S(IV)</td></tr><tr><td>Sulfate</td><td>SO\u2084\u00B2\u207B</td><td>-2</td><td>S(VI)</tr><tr><td>Hydrogen sulfate</td><td>HSO\u2084\u207B</td><td>-1</td><td>S(VI)</tr><tr><td>Thiosulfite</td><td>S\u2082O\u2082\u00B2\u207B</td><td>-2</td><td>S(IV)/S(-II)</tr><tr><td>Thiosulfate</td><td>S\u2082O\u2083\u00B2\u207B</td><td>-2</td><td>S(VI)/S(-II)</tr><tr><td>Hydrogen thiosulfate</td><td>HS\u2082O\u2083\u207B</td><td>-1</td><td>S(VI)/S(-II)</tr><tr><td>Dithionite</td><td>S\u2082O\u2084\u00B2\u207B</td><td>-2</td><td>S(III)</tr><tr><td>Disulfite</td><td>S\u2082O\u2085\u00B2\u207B</td><td>-2</td><td>S(V)/S(III)</tr><tr><td>Dithionate</td><td>S\u2082O\u2086\u00B2\u207B</td><td>-2</td><td>S(V)</tr><tr><td>Disulfate</td><td>S\u2082O\u2087\u00B2\u207B</td><td>-2</td><td>S(VI)</tr><tr><td>Hydrogen disulfate</td><td>HS\u2082O\u2087\u207B</td><td>-1</td><td>S(VI)</tr><tr><td>Peroxomonosulfate</td><td>SO\u2085\u00B2\u207B</td><td>-2</td><td>S(VI)</tr><tr><td>Hydrogen peroxomonosulfate</td><td>HSO\u2085\u207B</td><td>-1</td><td>S(VI)</tr><tr><td>Peroxydisulfate</td><td>S\u2082O\u2088\u00B2\u207B</td><td>-2</td><td>S(VI)</td></tr><tr><td>Hydrogen peroxydisulfate</td><td>HS\u2082O\u2088\u207B</td><td>-1</td><td>S(VI)</td></tr>", //polyatomic oxyanion non-common sulfur (11)
+           
+           "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Selenium Oxyanions</span></br></br><span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below.</span> </br></br> In addition to the common selenium oxyanions, (<span class='red'>Selenite</span> and <span class='red'>Selenate</span>), the following more complex selenium oxyanions exist: </br></br><span style='font-weight:600;'>One additional selenium oxyanion exists for the Se(VI) oxidation state:</span><p style='margin:3%;'><span style='font-weight:600;'>Orthoselenate</span> (<span class='red'>SeO\u2085\u2074\u207B</span>)</p><span style='font-weight:600;'>Two selenium 'dimer' oxyanions</span> (<span class='red'>Diselenite</span> and <span class='red'>Diselenate</span>). See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.</br></br><span style='font-weight:600;'>Selenium oxyanions also include the following 'hydrogen added' variants: </span><span class='red'>Hydrogen Selenite</span> and <span class='red'>Hydrogen Selenate</span>. </br></br>The selenium oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Selenium Oxidation State</th><tr><td>Selenite</td><td>SeO\u2083\u00B2\u207B</td><td>-2</td><td>Se(IV)</td></tr><tr><td>Hydrogen selenite</td><td>HSeO\u2083\u207B</td><td>-1</td><td>Se(IV)</td></tr><tr><td>Selenate</td><td>SeO\u2084\u00B2\u207B</td><td>-2</td><td>Se(VI)</tr><tr><td>Hydrogen selenate</td><td>HSeO\u2084\u207B</td><td>-1</td><td>Se(VI)</tr><tr><td>Orthoselenate</td><td>SeO\u2085\u2074\u207B</td><td>-4</td><td>Se(VI)</tr><tr><td>Diselenite</td><td>Se\u2082O\u2085\u00B2\u207B</td><td>-2</td><td>Se(IV)</tr><tr><td>Diselenate</td><td>Se\u2082O\u2087\u00B2\u207B</td><td>-2</td><td>Se(VI)</td></tr>", //selenium (12)
+
+           "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Tellurium Oxyanions</span></br></br><span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below.</span> </br></br>The following tellurium oxyanions exist-</br></br><span style='font-weight:600;'>One telluride oxyanion</span> (<span class='red'>Tellurite</span>, <span class='red'>TeO\u2083\u00B2\u207B</span>) <span style='font-weight:600;'>follows standard naming conventions</span>. This oxyanion represents the Te(IV) oxidation state.</br></br><span style='font-weight:600;'>Three telluride oxyanions exist for the Te(VI) oxidation state:</span><p style='margin:3%;'><span style='font-weight:600;'>Metatellurate</span> (<span class='red'>TeO\u2084\u00B2\u207B</span>), which corresponds to Tellurate in the standard naming convention.</p><p style='margin:3%;'><span style='font-weight:600;'>Orthotellurate</span> (<span class='red'>TeO\u2086\u2076\u207B</span>)</p><p style='margin:3%;'><span style='font-weight:600;'>Pentaoxotellurate</span> (<span class='red'>TeO\u2085\u2074\u207B</span>), so-named because meta and ortho are already taken.</p><span style='font-weight:600;'>Three tellurium 'dimer' oxyanions</span> (<span class='red'>Pyrotellurite</span>, <span class='red'>Pyrotellurate</span> and <span class='red'>Ditellurate</span>). See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.</p> <span style='font-weight:600;'>Tellurium oxyanions also include the following 'hydrogen added' variants: </span><span class='red'>Hydrogen Tellurite</span> and <span class='red'>Hydrogen Tellurate</span>.</br></br>The tellurium oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Tellurium Oxidation State</th><tr><td>Tellurite</td><td>TeO\u2083\u00B2\u207B</td><td>-2</td><td>Te(IV)</td></tr><tr><td>Hydrogen tellurite</td><td>HTeO\u2083\u207B</td><td>-1</td><td>Te(IV)</td></tr><tr><td>Metatellurate</td><td>TeO\u2084\u00B2\u207B</td><td>-2</td><td>Te(VI)</tr><tr><td>Hydrogen tellurate</td><td>HTeO\u2084\u207B</td><td>-1</td><td>Te(VI)</tr><tr><td>Orthotellurate</td><td>TeO\u2086\u2076\u207B</td><td>-6</td><td>Te(VI)</tr><tr><td>Pentaoxotellurate</td><td>TeO\u2085\u2074\u207B</td><td>-4</td><td>Te(VI)</tr><tr><td>Pyrotellurite</td><td>Te\u2082O\u2085\u00B2\u207B</td><td>-2</td><td>Te(IV)</tr><tr><td>Pyrotellurate</td><td>Te\u2082O\u2087\u00B2\u207B</td><td>-2</td><td>Te(VI)</td></tr><tr><td>Ditellurate</td><td>Te\u2082O\u2081\u2080\u2078\u207B</td><td>-8</td><td>Te(VI)</td></tr>", //telluride (13)
+
+           "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Nitrogen Oxyanions</span></br></br><span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below.</span> </br></br> In addition to the common nitrogen oxyanions, (<span class='red'>Nitrite</span> and <span class='red'>Nitrate</span>), the following more complex nitrogen oxyanions exist:</br></br><span style='font-weight:600;'>One additional nitrogen oxyanion exists for the N(V) oxidation state:</span><p style='margin:3%;'><span style='font-weight:600;'>Orthonitrate</span> (<span class='red'>NO\u2084\u00B3\u207B</span>)</p><span style='font-weight:600;'>One nitrogen oxyanion actually exists for the N(I) oxidation state:</span><p style='margin:3%;'><span style='font-weight:600;'>Hyponitrite</span> (<span class='red'>N\u2082O\u2082\u00B2\u207B</span>)</p><span style='font-weight:600;'>Two 'peroxy' nitrogen oxyanions</span> (<span class='red'>Peroxynitrite</span> and <span class='red'> Peroxynitrate</span>).<p style='margin:3%;'>Both replace a surrounding oxygen with a peroxide ion.  As this ion has a charge of -2, the charge of neither ion changes.</p><p style='margin:3%;'>The formulas become <span class='red'>O\u2082NO\u207B</span> and <span class='red'>O\u2082NO\u2082\u207B</span> respectively.</p> <span style='font-weight:600;'> Nitrogen oxyanions also include the following 'hydrogen added' variant: </span><span class='red'>Hydrogen Hyponitrite</span></br></br>The nitrogen oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Nitrogen Oxidation State</th><tr><td>Nitrite</td><td>NO\u2083\u207B</td><td>-1</td><td>N(III)</td></tr><tr><td>Nitrate</td><td>NO\u2084\u207B</td><td>-1</td><td>N(V)</tr><tr><td>Orthonitrate</td><td>NO\u2084\u00B3\u207B</td><td>-3</td><td>N(V)</tr><tr><td>Hyponitrite</td><td>N\u2082O\u2082\u00B2\u207B</td><td>-2</td><td>N(I)</tr><tr><td>Hydrogen hyponitrite</td><td>HN\u2082O\u2082\u207B</td><td>-1</td><td>N(I)</tr><tr><td>Peroxynitrite</td><td>O\u2082NO\u207B</td><td>-1</td><td>N(III)</tr><tr><td>Peroxynitrate</td><td>O\u2082NO\u2082\u207B</td><td>-1</td><td>N(V)</tr></table>", //nitrogen (14)
+
+           "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Phosphorus Oxyanions</span></br></br><span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below.</span> </br></br> <span style='font-weight:600;'>We are aware of the common phosporus oxyanion</span>, (<span class='red'>Phosphate</span>), and its two 'hydrogen added' oxyanions (<span class='red'>Hydrogen phosphate</span> and <span class='red'>Dihydrogen phosphate</span>)).  These three oxyanions represent the P(V) oxidation state.</br></br> <span style='font-weight:600;'>One additional phosphorus oxyanion exists for the P(V) oxidation state</span>: <p style='margin:3%;'><span style='font-weight:600;'>Metaphosphate</span> (<span class='red'>PO\u2083\u207B</span>)</p> <span style='font-weight:600;'>It would seem there should be a phosphite (PO\u2083\u00B3\u207B) ion representing the P(III) oxidation state as well</span>.  <p style='margin:3%;'>However, this ion is not observed.  What is observed instead is an ion with a central P in the (III) oxidation state with three surrounding oxygens and a hydrogen bonded to the central P atom, rather than to one of the oxygens.</p><p style='margin:3%;'>  That is, if the theoretical phosphite ion were to be formed, it would immediately be protonated AT THE P ATOM rather than at one of the oxygens.</p><p style='margin:3%;'> This means that PO\u2083\u00B3\u207B does not actually exist except theoretically. </p><p style='margin:3%;'> Additionally, because the H atom is bonded at the central P atom instead of at a surrounding oxygen we would not call the resulting ion, HPO\u2083\u00B2\u207B, Hydrogen Phosphite.  That would only be the case if the H atom was protonating a surrounding oxygen (confusingly however, salts contining the HPO\u2083\u00B2\u207B ion are still referred to as 'hydrogen phophites'). </p>  <p style='margin:3%;'>The correct term for the <span class='red'>HPO\u2083\u00B2\u207B</span> ion is the <span style='font-weight:600;'>Phosphonate ion</span> and the correct term for a salt of this ion is a 'phosphonate'.</p> <p style='margin:3%;'>Also, as this ion has a 2- charge, it can become protonated at one of the surrounding oxygens.</p><p style='margin:3%;'>  The resulting formula would be <span class='red'>H\u2082PO\u2083\u207B</span>, and the ion name would be <span style='font-weight:600;'>Hydrogen Phosphonate</span> rather than dihydrogen phosphite.</p>  So, bottom line: <p style='margin:3%;'>There is no phosphite ion (PO\u2083\u00B3\u207B)</p><p style='margin:3%;'><span class='red'>HPO\u2083\u00B2\u207B</span> is the <span style='font-weight:600;'>Phosphonate ion</span></p><p style='margin:3%;'><span class='red'>H\u2082PO\u2083\u207B</span> is the <span style='font-weight:600;'>Hydrogen Phosphonate ion</span></p><p style='margin:3%;'>BE AWARE of the incorrect 'phosphite' terminology.</p> <span style='font-weight:600;'>A phosphorus oxyanion with the (I) oxidation state also exists</span> <p style='margin:3%;'>In this ion there are two surrounding oxygens, and, similar to the phosphonate case, two hydrogen atoms bonded to the central P atom.  The formula of this ion is H\u2082PO\u2082\u207B.  Technically, the name for this ion is phosphinate.</p> <p style='margin:3%;'>However, in contrast to the phosphonate ion, commonly used terminology has not caught up, so the older term, Hypophosphite, remains in common use, and this is what we will say: <p style='margin:6%;'><span class='red'>H\u2082PO\u2082\u00B2\u207B</span> is the <span style='font-weight:600;'>Hypophosphite ion</span></p></p><span style='font-weight:600;'>Two phosphorus 'dimer' oxyanions also exist:</span> <p style='margin:3%;'><span style='font-weight:600;'>Pyrophosphite</span>: <span class='red'>H\u2082P\u2082O\u2085\u00B2\u207B</span> (although this should technically be pyrophosphonate)</p><p style='margin:3%;'><span style='font-weight:600;'>Pyrophosphate</span>: <span class='red'>P\u2082O\u2087\u2074\u207B</span> .</p> See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this. </br></br><span style='font-weight:600;'>The pyrophosphate ion also has a 'hydrogen added' variant</span>:<p style='margin:3%;'><span style='font-weight:600;'>Dihydrogen pyrophosphate</span>: <span class='red'>H\u2082P\u2082O\u2087\u00B2\u207B</span></p> The phosphorus oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Phosphorus Oxidation State</th><tr><td>Phosphate</td><td>PO\u2084\u00B3\u207B</td><td>-3</td><td>P(V)</td></tr><tr><td>Hydrogen phosphate</td><td>HPO\u2084\u00B2\u207B</td><td>-2</td><td>P(V)</td></tr><tr><td>Dihydrogen phosphate</td><td>H\u2082PO\u2084\u207B</td><td>-1</td><td>P(V)</td></tr><tr><td>Metaphosphate</td><td>PO\u2083\u207B</td><td>-</td><td>P(V)</tr><tr><td>Phosphonate</td><td>HPO\u2083\u00B2\u207B</td><td>-2</td><td>P(III)</tr><tr><td>Hydrogen phosphonate</td><td>H\u2082PO\u2083\u207B</td><td>-1</td><td>P(III)</tr><tr><td>Hypophosphite</td><td>H\u2082PO\u2082\u00B2\u207B</td><td>-2</td><td>P(III)</tr><tr><td>Pyrophosphite</td><td>H\u2082P\u2082O\u2085\u00B2\u207B</td><td>-2</td><td>P(III)</tr><tr><td>Pyrophosphate</td><td>P\u2082O\u2087\u2074\u207B</td><td>-4</td><td>P(V)</tr><tr><td>Dihydrogen Pyrophosphate</td><td>H\u2082P\u2082O\u2087\u00B2\u207B</td><td>-2</td><td>P(V)</td></tr>",//phosphorus (15)
+
+          "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Arsenic Oxyanions</span></br></br><span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below.</span> </br></br> The following arsenic oxyanions exist: </br></br><span style='font-weight:600;'>Two arsenic oxyanions exist for the As(III) oxidation state:</span><p style='margin:3%;'><span style='font-weight:600;'>Metaarsenite</span> (<span class='red'>AsO\u2082\u207B</span>)-Note: this structure is not seen as a discrete ion but only within polymeric chains</p></span><p style='margin:3%;'><span style='font-weight:600;'>Orthoarsenite</span> (<span class='red'>AsO\u2083\u00B3\u207B</span>)</p> <span style='font-weight:600;'>Two arsenic oxyanions exist for the As(V) oxidation state:</span><p style='margin:3%;'><span style='font-weight:600;'>Metaarsenate</span> (<span class='red'>AsO\u2083\u207B</span>)</p></span><p style='margin:3%;'><span style='font-weight:600;'>Orthoarsenate</span> (<span class='red'>AsO\u2084\u00B3\u207B</span>)</p> <span style='font-weight:600;'>Both the orthoarsenite and orthoarsenate ions have hydrogen and dihydrogen variants</span>-the <span class='red'>Hydrogen Arsenite</span>, <span class='red'>Dihydrogen Arsenite</span>, <span class='red'>Hydrogen Arsenate</span>, and <span class='red'> Dihydrogen Arsenate </span> ions. </br></br> <span style='font-weight:600;'>Two arsenic 'dimer' oxyanions</span> (<span class='red'>Pyroarsenite</span> and <span class='red'>Pyroarsenate</span>). See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.</br></br>The arsenic oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Arsenic Oxidation State</th><tr><td>Metaarsenite</td><td>AsO\u2082\u207B</td><td>-1</td><td>As(III)</td></tr><tr><td>Metaarsenate</td><td>AsO\u2083\u207B</td><td>-1</td><td>As(V)</td></tr><tr><td>Orthoarsenite</td><td>AsO\u2083\u00B3\u207B</td><td>-3</td><td>As(III)</td></tr><tr><td>Hydrogen Arsenite</td><td>HAsO\u2083\u00B2\u207B</td><td>-2</td><td>As(III)</td></tr><tr><td>Dihydrogen Arsenite</td><td>H\u2082AsO\u2083\u207B</td><td>-1</td><td>As(III)</td></tr><tr><td>Orthoarsenate</td><td>AsO\u2084\u00B3\u207B</td><td>-3</td><td>As(V)</td></tr><tr><td>Hydrogen Arsenate</td><td>HAsO\u2084\u00B2\u207B</td><td>-2</td><td>As(V)</td></tr><tr><td>Dihydrogen Arsenate</td><td>H\u2082AsO\u2084\u207B</td><td>-1</td><td>As(V)</td></tr><tr><td>Pyroarsenite</td><td>As\u2082O\u2085\u2074\u207B</td><td>-4</td><td>As(III)</td></tr><tr><td>Pyroarsenate</td><td>As\u2082O\u2087\u2074\u207B</td><td>-4</td><td>As(V)</td></tr></table>",  //arsenic (16)
+
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Antimony Oxyanions</span></br></br><span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below.</span> </br></br> The following antimony oxyanions exist: </br></br><span style='font-weight:600;'>Two antimony oxyanions exist for the Sb(III) oxidation state:</span><p style='margin:3%;'><span style='font-weight:600;'>Metaantimonite</span> (<span class='red'>SbO\u2082\u207B</span>)</p></span><p style='margin:3%;'><span style='font-weight:600;'>Orthoantimonite</span> (<span class='red'>SbO\u2083\u00B3\u207B</span>)</p> <span style='font-weight:600;'>Two antimony oxyanions exist for the Sb(V) oxidation state:</span><p style='margin:3%;'><span style='font-weight:600;'>Metaantimonate</span> (<span class='red'>SbO\u2083\u207B</span>)</p></span><p style='margin:3%;'><span style='font-weight:600;'>Orthoantimonate</span> (<span class='red'>SbO\u2084\u00B3\u207B</span>)</p> <span style='font-weight:600;'>Both the orthoantimonite and orthoantimonate ions have hydrogen and dihydrogen variants</span>-the <span class='red'>Hydrogen Antimonite</span>, <span class='red'>Dihydrogen Antimonite</span>, <span class='red'>Hydrogen Antimonate</span>, and <span class='red'> Dihydrogen Antimonate </span> ions. </br></br> <span style='font-weight:600;'>One antimony 'dimer' oxyanions</span> (<span class='red'>Pyroanimonate</span>). See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.<p style='margin:3%;'>This dimer also has a hydrogen and dihydrogen variant</p>The antimony oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Antimony Oxidation State</th><tr><td>Metaantimonite</td><td>SbO\u2082\u207B</td><td>-1</td><td>Sb(III)</td></tr><tr><td>Metaantimonate</td><td>SbO\u2083\u207B</td><td>-1</td><td>Sb(V)</td></tr><tr><td>Orthoantimonite</td><td>SbO\u2083\u00B3\u207B</td><td>-3</td><td>Sb(III)</td></tr><tr><td>Hydrogen Antimonite</td><td>HSbO\u2083\u00B2\u207B</td><td>-2</td><td>Sb(III)</td></tr><tr><td>Dihydrogen Antimonite</td><td>H\u2082SbO\u2083\u207B</td><td>-1</td><td>Sb(III)</td></tr><tr><td>Orthoantimonate</td><td>SbO\u2084\u00B3\u207B</td><td>-3</td><td>Sb(V)</td></tr><tr><td>Hydrogen Antimonate</td><td>HSbO\u2084\u00B2\u207B</td><td>-2</td><td>Sb(V)</td></tr><tr><td>Dihydrogen Antimonate</td><td>H\u2082SbO\u2084\u207B</td><td>-1</td><td>Sb(V)</td></tr><tr><td>Pyroantimonate</td><td>Sb\u2082O\u2087\u2074\u207B</td><td>-4</td><td>Sb(V)</td></tr><tr><td>Hydrogen Pyroantimonate</td><td>HSb\u2082O\u2087\u2073\u207B</td><td>-3</td><td>Sb(V)</td></tr><tr><td>Diydrogen Pyroantimonate</td><td>H\u2082Sb\u2082O\u2087\u2072\u207B</td><td>-2</td><td>Sb(V)</td></tr></table>",  //antimony (17)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Titanium Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below</span>.</br></br>The following titanium oxyanions appear to exist:</br></br>I could only find evidence for oxyanions associated with the +4 oxidation state.</br></br><span style='font-weight:600;'>Two titanium(IV) oxyanions appear to exist: </span><p style='margin:3%;'><span style='font-weight:600;'>Metatitanate</span> (<span class='red'>TiO\u2083\u00B2\u207B</span>)</p></span><p style='margin:3%;'><span style='font-weight:600;'>Orthotitanate</span> (<span class='red'>TiO\u2084\u2074\u207B</span>)</p> <p style='margin:3%;'>However, these structures are stated to be present in mineral compounds in which discrete identifiable anion centers are almost never present.</p><span style='font-weight:600;'>A titanium 'dimer' oxyanion</span> (<span class='red'>Pyrotitanate</span>) also appears to exist. See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.</br></br>The titanium oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Titanium Oxidation State</th><tr><td>Metatitanate</td><td>TiO\u2083\u00B2\u207B</td><td>-2</td><td>Ti(IV)</td></tr><tr><td>Orthotitanate</td><td>TiO\u2084\u2074\u207B</td><td>-4</td><td>Ti(IV)</td></tr><tr><td>Pyrotitanate</td><td>Ti\u2082O\u2087\u2076\u207B</td><td>-6</td><td>Ti(IV)</td></tr></table>",//titanium (18)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Manganese Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below</span>.</br></br>This discussion has not yet been created.</br></br></br></br></br></br></br></br></br></br></br></br></br></br>",//manganese (19)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Lead Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion</span>.</br></br>The following lead oxyanions exist:</br></br><span style='font-weight:600;'>At least one oxyanion exists for the lead(II) oxidation state: </span><p style='margin:3%;'><span style='font-weight:600;'>Plumbite</span> (<span class='red'>PbO\u2082\u00B2\u207B</span>)</p></span><span style='font-weight:600;'>At least two oxyanions exist for the lead(IV) oxidation state: <p style='margin:3%;'><span style='font-weight:600;'>Metaplumbate</span> (<span class='red'>PbO\u2083\u00B2\u207B</span>)</p><p style='margin:3%;'><span style='font-weight:600;'>Orthoplumbate</span> (<span class='red'>PbO\u2084\u2074\u207B</span>)</p> The lead oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Lead Oxidation State</th><tr><td>Plumbite</td><td>PbO\u2082\u00B2\u207B</td><td>2-</td><td>Pb(II)</td></tr><tr><td>Metaplumbate</td><td>PbO\u2083\u00B2\u207B</td><td>2-</td><td>Pb(IV)</td></tr><tr><td>Orthoplumbate</td><td>PbO\u2084\u2074\u207B</td><td>4-</td><td>Pb(IV)</td></tr></table>",//lead (20)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Silicon Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion</span>.</br></br>Minerals containing the silicate oxyanion make up the vast majority of the Earth's crust.  In many different types of minerals the SiO\u2084\u2074\u207B ion is connected into a variety of different types of polymeric structures, some of which result in Si to O proportions other than 1:4.  These various polymeric forms have many different names, which we will not review here.</br></br> However, in one class of silicate minerals the SiO\u2084\u2074\u207B ion is present as isolated structures.  Because one of the polymeric forms provides a silicon to oxygen proportion of 1:3 (SiO\u2084\u2072\u207B), and is called 'metasilicate', the <span class='red'>SiO\u2084\u2074\u207B</span> ion is called <span style='font-weight:600;'>orthosilicate ion</span> rather than simply silicate.</br></br>Another category of silicate minerals contains isolated dimers of SiO\u2084\u2074\u207B structures, or <span style='font-weight:600;'>pyrosilicate ions</span> (<span class='red'>Si\u2082O\u2087\u2076\u207B</span>).  (See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.)</br></br> The silicon oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Silicon Oxidation State</th><tr><td>Orthosilicate</td><td>SiO\u2084\u2074\u207B</td><td>-4</td><td>Si(IV)</td></tr><tr><td>Pyrosilicate</td><td>Si\u2082O\u2087\u2076\u207B</td><td>-6</td><td>Si(IV)</td></tr></table>", //silicon (21)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Tin Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion</span>.</br></br>The following tin oxyanions exist:</br></br><span style='font-weight:600;'>One oxyanion exists for the tin(II) oxidation state: </span><p style='margin:3%;'><span style='font-weight:600;'>Stannite</span> (<span class='red'>SnO\u2082\u00B2\u207B</span>)</p></span><span style='font-weight:600;'>Two oxyanions exist for the tin(IV) oxidation state: <p style='margin:3%;'><span style='font-weight:600;'>Metastannate</span> (<span class='red'>SnO\u2083\u00B2\u207B</span>)</p><p style='margin:3%;'><span style='font-weight:600;'>Orthostannate</span> (<span class='red'>SnO\u2084\u2074\u207B</span>)</p> The tin oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Tin Oxidation State</th><tr><td>Stannite</td><td>SnO\u2082\u00B2\u207B</td><td>2-</td><td>Sn(II)</td></tr><tr><td>Metastannate</td><td>SnO\u2083\u00B2\u207B</td><td>2-</td><td>Sn(IV)</td></tr><tr><td>Orthostannate</td><td>SnO\u2084\u2074\u207B</td><td>4-</td><td>Sn(IV)</td></tr></table>", //tin (22)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Germanium Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion</span>.</br></br>Compounds containing germanium oxyanions are analagous to silicon.  Germanium can substitute for silicon in many different types of minerals in which the GeO\u2084\u2074\u207B ion is connected into a variety of different types of polymeric structures, some of which result in Ge to O proportions other than 1:4.  As with silicon, because these do not result in discrete germanium oxyanions we will not review many of these here.</br></br> However, in some germanium containing compounds the GeO\u2084\u2074\u207B ion is present as isolated structures.  Because one of the polymeric forms provides a germanium to oxygen proportion of 1:3 (SiO\u2084\u2072\u207B), and is called 'metagermanate', the <span class='red'>GO\u2084\u2074\u207B</span> ion is called <span style='font-weight:600;'>orthogermanate ion</span> rather than simply germanate.</br></br>Another category of germanate compound contains isolated dimers of GeO\u2084\u2074\u207B structures, or <span style='font-weight:600;'>pyrogermanate (aka digermanate) ions</span> (<span class='red'>Ge\u2082O\u2087\u2076\u207B</span>).  (See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.)</br></br> The germanium oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Germanium Oxidation State</th><tr><td>Orthogermanate</td><td>GeO\u2084\u2084\u207B</td><td>-4</td><td>Ge(IV)</td></tr><tr><td>Pyrogermanate (Digermanate)</td><td>Ge\u2082O\u2087\u2076\u207B</td><td>-6</td><td>Ge(IV)</td></tr></table>", //germanium (23)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Carbon Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below</span>.</br></br>A very large number of anions consisting of only carbon and oxygen (along with 'hydrogen-added' variants) exist.  Many of these are also unusual or only exist under specialized circumstances so we will only consider a few of these.  Of these, most more correctly fall in the category of organic oxyanions and we will consider some of these there.  Here we will only consider the carbon oxyanions containing a single central carbon atom.</br></br><span style='font-weight:600;'>Two carbon oxyanions fit the standard pattern of oxyanion formation corresponding the carbon oxidation states of (II) and (IV)</span> (remember that period two central atom oxyanions are stated to be constrained to three oxygens for the higher oxidation state and two for the lower oxidation state because they cannot become hypervalent and so would not be able to form resoance structures with more than four bonds to surrounding oxygens-this is in contrast to higher period central atoms which can bond to four, or even more oxygens) :</span><p style='margin:3%;'><span style='font-weight:600;'>Carbonite</span> (<span class='red'>CO\u2082\u00B2\u207B)-although this anion would appear to fit the pattern of structure and naming most common oxyanions follow, the carbonite ion is seen in compounds only under special circumstances and so is not included in lists of common oxyanions.</p></span><p style='margin:3%;'><span style='font-weight:600;'>Carbonate</span> (<span class='red'>CO\u2083\u00B2\u207B).</p><span style='font-weight:600;'>The carbonate ion also has a hydrogen-added variant</span>, <span class='red'>Hydrogen Carbonate</span> (also known as <span class='red'>Bicarbonate</span>)</br></br>The carbon oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Carbon Oxidation State</th><tr><td>Carbonite</td><td>CO\u2082\u00B2\u207B</td><td>-2</td><td>C(II)</td></tr><tr><td>Carbonate</td><td>CO\u2083\u00B2\u207B</td><td>-2</td><td>C(IV)</td></tr><tr><td>Hydrogen Carbonate (Bicarbonate)</td><td>HCO\u2083\u00B2\u207B</td><td>-1</td><td>C(IV)</td></tr></table>", //carbon (24)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Boron Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below</span>.</br></br>This discussion has not yet been created.</br></br></br></br></br></br></br></br></br></br></br></br></br></br>",//boron (25)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Chromium Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below</span>.</br></br>This discussion has not yet been created.</br></br></br></br></br></br></br></br></br></br></br></br></br></br>",//chrmoium (26)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Vanadium Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below</span>.</br></br>This discussion has not yet been created.</br></br></br></br></br></br></br></br></br></br></br></br></br></br>",//vanadium (27)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Bismuth Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion</span>.</br></br>The following bismuth oxyanions appear to exist:</br></br>I could only find evidence for oxyanions associated with the +5 oxidation state.</br></br><span style='font-weight:600;'>Two bismuth(V) oxyanions appear to exist: </span><p style='margin:3%;'><span style='font-weight:600;'>Metabismuthate</span> (<span class='red'>BiO\u2083\u207B</span>)</p></span><p style='margin:3%;'><span style='font-weight:600;'>Orthobismuthate</span> (<span class='red'>BiO\u2084\u00B3\u207B</span>)</p> <p style='margin:3%;'></p><span style='font-weight:600;'>A bismuth 'dimer' oxyanion</span> (<span class='red'>Pyrobismuthate</span>) also appears to exist. See the <a href='#dimer'>Combination of individual oxyanions to form dimers (or more) of oxyanions</a> section above for further discussion of this.</br></br>The bismuth oxyanions are summarized in the folllowing table.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Bismuth Oxidation State</th><tr><td>Metabismuthate</td><td>BiO\u2083\u207B</td><td>-1</td><td>Bi(V)</td></tr><tr><td>Orthobismuthate</td><td>BiO\u2084\u00B3\u207B</td><td>-3</td><td>Bi(V)</td></tr><tr><td>Pyrobismuthate</td><td>Bi\u2082O\u2087\u2074\u207B</td><td>-4</td><td>Bi(V)</td></tr></table>",//bismuth (28)
+
+            "<a name='specific'></a><span style='font-weight:600;text-decoration:underline;'>Iron Oxyanions</span></br></br> <span style='font-weight:600;'>The oxyanion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion, as described in more detail below</span>.</br></br>This discussion has not yet been created.</br></br></br></br></br></br></br></br></br></br></br></br></br></br>", //iron (29)
+
+            "<span style='font-weight:600;'>In this case, the polyatomic ion is a</span> <span class='red'>non-oxy polyatomic ion</span>.  These ions can contain oxygen atoms, but just not in the typical arrangement of oxygen atoms surrounding a central non-oxygen</span>.  <p style='margin:3%;'>In general, these ions are composed of a small number of covalently-bonded non-metal atoms consisting of carbon, nitrogen, oxygen, sulfur, and/or hydrogen.</p><p style='margin:3%;'>The naming of these follows no specific rules but for our purposes there are only a few of them so remembering their formulas and names will not be difficult.</p><p style='margin:3%;'>The assigning of charges requires understanding of the oxidation states of the individual atoms involved.</p><p style='margin:3%;'>As with any polyatomic ion these can either simply be memorized, or learned through understanding of oxidation states of atoms involved.</p><p style='margin:3%;'>As the number of these ions you need to know is so small and there are no real rules that unite this group we will explain each individually.</br></br>Additionally, the following table summarizes these ions you need to know.</br></br><table><th>Ion Name</th><th>Ion Formula</th><th>Ion Charge</th><th>Ion Oxidation States</th><tr><td>Ammonium</td><td>NH\u2084\u207A</td><td>+1</td><td>H(I) / N(-III)</td></tr><tr><td>Cyanide</td><td>CN\u207B</td><td>-1</td><td>C(II) / N(-III)</td></tr><tr><td>Cyanate</td><td>OCN\u207B</td><td>-1</td><td>O(-II) / C(IV) / N(-III)</td></tr></br></br><tr><td>Thiocyanate</td><td>SCN\u207B</td><td>-1</td><td>S(-II) / C(IV) / N(-III)</td></tr></table></br></br>", //non-oxygen polyatomic ions (30)
+
+            "<a name='specific'></a><span style='font-weight:600;'>The polyatomic ion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion.</span></br></br>  The cyanide ion is composed of a single nitrogen and single carbon atom triple bonded together, meaning that each atom also has an unshared pair of electrons.  </br></br>Remember that according to the rules of oxidation states in covalent structures, the most electronegative atom is assigned all bonded electrons.  <p style='margin:3%;'>Therefore, in this ion, nitrogen is assigned a total of 8 electrons (the electrons in the triple bond plus those in its unshared pair).  As the valence of nitrogen is 5, as it is assigned three more electrons than its valence, its oxidation state is -3.</p><p style='margin:3%;'>  As carbon is only assigned the electrons of its unshared pair, it is only assigned 2 electrons, which is two less than its valence of 4.  Therefore, the oxidation state of the carbon atom is +2.</p> <p style='margin:3%;'> This means the overall charge of the ion is 1-.</p>Be aware that the unshared electron pair of the carbon atom is highly reactive and can be used to replace other atoms bonded to carbon (especially halides) to form organic compounds that contain the CN group bonded to a carbon in the organic compound.  When the CN group is added to an organic compound in this way it is called a <span class='red'>nitrile</span>.", //cyanide (31)
+
+            "<span style='font-weight:600;'>In this case, the polyatomic ion is an</span> <span class='red'>ion formed from the addition of or dissociation of a hydrogen ion to or from an organic molecule.</span>.  <p style='margin:3%;'>There are a very large number of these but only a few that you need to know-this application will only focus on those most commonly discussed in chemistry classes.  We will discuss organic polyatomic ions from two main groups:</br></br><a href='#carboxyAnion'>Anions from dissociation of hydrogen from organic acids</a></br></br><a href='#cations from addition of hydrogen to nitrogen containing organic compounds'</a>", //organic general (32)
+             
+             "<a name='specific'></a><span style='font-weight:600;'>The polyatomic ion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion.</span></br></br>  The ammonium ion is composed of a single central nitrogen atom bonded to four hydrogen atoms.  </br></br>Remember that according to the rules of oxidation states in covalent structures, the most electronegative atom is assigned all bonded electrons.  <p style='margin:3%;'>Therefore, in this ion, nitrogen is assigned a total of 8 electrons (the electrons from all four bonded hydrogens).  As the valence of nitrogen is 5, as it is assigned three more electrons than its valence, its oxidation state is -3.</p><p style='margin:3%;'>  As each hydrogen is assigned no electrons, which is one less than their valence of 1, the hydrogen oxidation states are +1.  </p> <p style='margin:3%;'> This means the overall charge of the ion is 1+.</p>The ammonium ion forms when an ammonia molecule (NH\u2083) steals a proton from a water molecule or some other structure that can donate a proton.  This means that ammonia is a base and the ammonium ion is its conjugate acid.  The ammonia molecule has the ability to do this because it has an unshared electron pair which can attract a proton.", //ammonium (33)
+
+             "<a name='specific'></a><span style='font-weight:600;'>The polyatomic ion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion.</span></br></br>  The thiocyanate ion is composed of a single nitrogen and single carbon atom triple bonded together, with a single sulfur atom then single-bonded to the remaining electron of the carbon.  The nitrogen will have one unshared electron pair while the sulfur will have three.  </br></br>Remember that according to the rules of oxidation states in covalent structures, the most electronegative atom is assigned all bonded electrons.  <p style='margin:3%;'>Therefore, in this ion, nitrogen is assigned a total of 8 electrons (the electrons in the triple bond plus those in its unshared pair).  As the valence of nitrogen is 5, as it is assigned three more electrons than its valence, its oxidation state is -3.</p><p style='margin:3%;'>As sulfur is more electronegative than carbon, it is also assigned 8 electrons (three unshared pairs plus the electrons of its single bond with carbon).  As the sulfur valence is 6, as it is assigned two more electrons than its valence, its oxidation state is -2.</p><p style='margin:3%;'>  As carbon is now assigned no electrons, it is assigned four fewer than its valence of 4.  Therefore, the oxidation state of the carbon atom is +4.</p> <p style='margin:3%;'> This means the overall charge of the ion is 1-.</p>Concerning naming, when a third atom is attached to the cyanide ion at the site of the unshared carbon electron pair, the suffix of the ion name is changed to -ate instead of -ide.  The additional atom could also be an oxygen atom instead of a sulfur atom, in which case the name would just be cyanate.", //thiocyanate (34)
+
+             "<a name='specific'></a><span style='font-weight:600;'>The polyatomic ion in this case was the <span class='red'>" + useThisArray[i].ionName + "</span> (<span class='red'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>) ion.</span></br></br>  The cyanate ion is composed of a single nitrogen and single carbon atom triple bonded together, with a single oxygen atom then single-bonded to the remaining electron of the carbon.  The nitrogen will have one unshared electron pair while the oxygen will have three.  </br></br>Remember that according to the rules of oxidation states in covalent structures, the most electronegative atom is assigned all bonded electrons.  <p style='margin:3%;'>Therefore, in this ion, nitrogen is assigned a total of 8 electrons (the electrons in the triple bond plus those in its unshared pair).  As the valence of nitrogen is 5, as it is assigned three more electrons than its valence, its oxidation state is -3.</p><p style='margin:3%;'>As oxygen is more electronegative than carbon, it is also assigned 8 electrons (three unshared pairs plus the electrons of its single bond with carbon).  As the oxygen valence is 6, as it is assigned two more electrons than its valence, its oxidation state is -2.</p><p style='margin:3%;'>  As carbon is now assigned no electrons, it is assigned four fewer than its valence of 4.  Therefore, the oxidation state of the carbon atom is +4.</p> <p style='margin:3%;'> This means the overall charge of the ion is 1-.</p>Concerning naming, when a third atom is attached to the cyanide ion at the site of the unshared carbon electron pair, the suffix of the ion name is changed to -ate instead of -ide.  The additional atom could also be a sulfur atom instead of a oxygen atom, in which case the name would be thiocyanate.",  //cyanate (35)
+
+              "However, if the ion is a lanthanide or actinide, as is the case with this ion, (<span style='font-weight:600'>" + useThisArray[i].ions + useThisArray[i].ionCharge + "</span>), as the ion may have one of multiple oxidation states (charges), it is desirable that a Roman numeral representing the oxidation state (charge) be included in the name-<span style='font-weight:600'>" + useThisArray[i].ionName + "</span>", //rare earth (36)
+
+
+             ]
+             
+            
+           // $.ajax({
+           //  url: "explanation.js",
+           //  dataType: "script",
+           //  success: function(data) {
+           //    explanationList = data;
+           //    alert(explanationList[0]);
+           //  }
+           // });
+
+
+          if (explanationIndex==0){
+
+            explanationActual=explanationList[0] + explanationList[1] //monoatomic cation no roman numeral
+
+          } else if (explanationIndex===1){
+
+            explanationActual=explanationList[0] + explanationList[2] // monoatomic cation roman numeral
+
+          } else if (explanationIndex===2){ 
+
+            explanationActual=explanationList[3]   // monoatomic anion
+
+          } else if (explanationIndex===3){
+
+            explanationActual=explanationList[4] + explanationList[0] + explanationList[2] // monoatomic cation roman numeral old
+
+          } else if (explanationIndex===4){
+
+          explanationActual=explanationList[5] + explanationList[6] + explanationList[7] // polyatomic oxyanions common
+
+          } else if (explanationIndex===5){
+
+            explanationActual=explanationList[5] + explanationList[8] +  explanationList[9] // polyatomic only oxygen atoms
+
+          } else if (explanationIndex===6){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] // polyatomic oxyanion non-common general (will need to change all to specific)
+
+          } else if (explanationIndex===7){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[11] // polyatomic oxyanion non-common sulfur
+
+          } else if (explanationIndex===8){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[12] // polyatomic oxyanion non-common selenium
+
+          } else if (explanationIndex===9){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[13] // polyatomic oxyanion non-common tellurium
+
+          } else if (explanationIndex===10){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[14] // polyatomic oxyanion non-common nitrogen
+
+          } else if (explanationIndex===11){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[15] // polyatomic oxyanion non-common phosphorus
+
+          } else if (explanationIndex===12){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[16] // polyatomic oxyanion non-common arsenic
+
+          } else if (explanationIndex===13){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[17] // polyatomic oxyanion non-common antimony
+
+          } else if (explanationIndex===14){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[18] // polyatomic oxyanion non-common titanium
+
+          } else if (explanationIndex===15){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[19] // polyatomic oxyanion non-common manganese
+
+          } else if (explanationIndex===16){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[20] // polyatomic oxyanion non-common lead
+
+          } else if (explanationIndex===17){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[21] // polyatomic oxyanion non-common silicon
+
+          }  else if (explanationIndex===18){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[22] // polyatomic oxyanion non-common tin
+
+          } else if (explanationIndex===19){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[23] // polyatomic oxyanion non-common germanium
+
+          } else if (explanationIndex===20){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[24] // polyatomic oxyanion non-common carbon
+
+          } else if (explanationIndex===21){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[25] // polyatomic oxyanion non-common boron
+
+          } else if (explanationIndex===22){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[26] // polyatomic oxyanion non-common chromium
+
+          } else if (explanationIndex===23){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[27] // polyatomic oxyanion non-common vanadium
+
+          } else if (explanationIndex===24){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[28] // polyatomic oxyanion non-common bismuth
+
+          } else if (explanationIndex===25){
+
+            explanationActual=explanationList[5] + explanationList[6] +  explanationList[10] + explanationList[29] // polyatomic oxyanion non-common iron
+
+          } else if (explanationIndex===26){
+
+            explanationActual=explanationList[5] + explanationList[30] +  explanationList[31] // polyatomic cyanide
+
+          } else if (explanationIndex===27){
+
+            explanationActual=explanationList[5] + explanationList[30] +  explanationList[33] // polyatomic ammonium
+
+          } else if (explanationIndex===28){
+
+            explanationActual=explanationList[5] +  explanationList[32] // polyatomic organic
+
+          }  else if (explanationIndex===29){
+
+            explanationActual=explanationList[5] +  explanationList[30] +explanationList[34] // polyatomic thiocyanate
+
+          }   else if (explanationIndex===30){
+
+            explanationActual=explanationList[5] +  explanationList[30] +explanationList[35] // polyatomic cyanate
+
+          } else if (explanationIndex===31){
+
+            explanationActual=explanationList[0] +  explanationList[36] // rare earth28
+
+          } else {
+
+            explanationActual=""
+
+          }
+
+      
+          //alert(explanationActual)
+
+          return explanationActual;
+    }
+      
+
+        function practiceFinished(){
+
+          $('#question').fadeOut(100);
+          $('#explanation').fadeOut(100);
+          $('#clock').fadeOut(100);
+
+           $('#practiceOverText').append(practiceName + ", your practice session of " + numQ + " questions is finished-</br></br>");
+           $('#practiceOver').fadeIn(500);
+
+        }
+
+        function accessoryWindow(windowURL,title,w,h) {
+
+          //alert("got to result screen")
+
+            if(!newWina||newWina.closed) {  //says "if there is no window"
+
+              var left = (screen.width/2)-(w/2); //sets practice/quiz window to middle of the screen
+              var top = (screen.height/2)-(h/2);
+
+              newWina = window.open(windowURL,title, "status,height="+h+","+"width="+w+",top="+top+",left="+left);
+              //gathers open window info from practice or quiz function
+
+              $('#newWina').on('beforeunload',function(evt){ 
+
+                window.location.reload(false);
+
+              });          
+
+            } else {
+
+            //window's already open
+            newWina.focus();
+
+             }
+
+            return false;
+
+            }
+
+          function getTermWindows() {
+            $('#monoatomic').on('click', function() {
+                accessoryWindow('monoatomic.html','',500,500)
+              });
+            $('#cation').on('click', function() {
+              accessoryWindow('cation.html','',500,500)
+            });
+            $('#latin').on('click', function() {
+              accessoryWindow('latin.html','',1000,800)
+            });
+            $('#anion').on('click', function() {
+              accessoryWindow('anion.html','',500,500)
+            });
+            $('#namingPAOxy').on('click', function() {
+              accessoryWindow('namingPA.html#namingPAoxy','',1000,800)
+            });
+            $('#expWindow').on('click', function() {
+              accessoryWindow('expWindow.html','',1000,800);
+              
+                $(newWina.document.body).ready(function() {
+                  
+                  newWina.document.body.innerHTML = explanationActual
+               
+                });
+            });
+
+          }
+
+          function closeEverything() {
+
+            $('#titlespan').empty();
+               $('#quiztype').css('display','none');
+               $('#quizTypeExp').css('display','none');
+               $('#qNum').css('display','none');
+               $('#timerAmount').css('display','none');
+               $('#startButton').css('display','none');
+               $('#question').css('display','none');
+               $('#practiceOver').css('display','none');
+               $('#correctAnswerSpan').css('display','none');
+               $('#incorrectAnswerSpan').css('display','none');
+               $('#explanation').css('display','none');
+               $('#correctAnswerSpan').css('display','none');
+               $('#clock').css('display','none');
+                $('#questionIon').empty();
+                $('#answerA').empty();
+                $('#answerB').empty();
+                $('#answerC').empty();
+                $('#answerD').empty();
+                $('#answerE').empty();
+                $('#correctAnswer').empty();
+                $('#incorrectAnswer').empty();
+                $('#explanationText').empty();
+                $('#hours').empty();
+                $('#minutes').empty();
+                $('#seconds').empty();
+                $('#practiceOverText').empty();
+                $('#quizTypeExpText').empty();
+                $('#quizTypeExpWindow').empty();
+
+               $("#yourName").fadeIn(500);
+
+
+               answer="";
+               qNumber = 1;
+               ans="";
+               ans1="";
+               ans2="";
+               ans3="";
+               ans4="";
+               ans5="";
+               i=0;
+               quizType="";
+               time=0;
+               useThisArray = []
+               questionNumbers = [];
+               userAnswers = [];
+               correctAnswers = [];
+               
+              
+               numCorrectAnswers=0;
+             
+               ionSymbols = []
+
+            }  
+
+      }); 
+
+
+
+        </script>
+
+       
+
+</head>
+
+<body class="ltgrn">
+
+  <!--This div contains the splash page info-->
+  <div id="main"> 
+
+    <header id="ionNamingHeader" class="header">
+
+      <h1 id="ionNamingh1" class="header" >DMar Science</h1>
+
+      <h2 id="ionNamingh2" class="header">Ion Naming Practice</h2>
+
+      <address id="ionNamingaddress" class="header">
+        Copyright  &copy; 2008-2017,  C. Jay Marshall, M.D.<a href="http://www.dmarscience.com/index.html"><img src="dmarlogosmall.png"></a><br>
+        Revised - <script>
+                  var modifieddate=document.lastModified
+                  document.write(modifieddate)
+                  </script><br>
+        Email: <a href="mailto:cjaymarshall1@hotmail.com"> cjaymarshall1@hotmail.com </a><br>
+        URL: <a href="http://www.dmarscience.com/index.html">www.dmarscience.com</a>
+      </address>
+
+    </header>
+
+    <p class = "splash">
+
+      <span class="smallerblackarial">Welcome to the <span class="marooncomic">DMar Science</span> Ion Naming Practice Application.</br></br>
+        This simple, intuitive, easy to use application contains the formulas and names of over 200 ions.</br></br>  For each question an ion formula is given and five possible names are presented in a multiple choice format.  The user answer is selected by clicking on the desired choice.  Instant feedback, including an explanation, is provided for each question.</br></br>
+
+        Features incude:
+
+            <ul class="smallermaroonarial indent splash">
+              <li>Options for quizzes with 10, 25, 50 or 100 questions</br></li>
+              <li>Options for "All Ions," "Ions You Must Know (High School and AP)," "All Polyatomic Ions," "Polyatomic Ions You Must Know (High School and AP)," and "All Monoatomic Ions"</br></li>
+              <li>Options for time limits on questions</br></li>
+              <li>Detailed listing of results with option for printing</li>
+            </ul>
+          
+          <p class = "centerText">  
+            *No personal or scoring information is retained by this application.</br>
+          <button class="button" type="button" id="sessionBegin" style="font-size:28px;">Begin Practice!</button>
+          </p>
+
+      </span>
+ 
+    </p>
+
+  <!--This div contains the dialog box-->
+
+  <div id="dialog" title="Ion Naming Practice">
+
+    <!--This span displays name, quiz type and start button-->
+
+    <span id="titlespan" class="blackemmajor" style="display:none;"></span>
+
+    <!--This span contains the login page-->
+
+    <span id="yourName" class="smallerblackarial" style="display:none;">Enter a name to use:
+
+    	<input type="text" id="inputYourName" />
+      <button class="button" type="button" id="submitName">Submit Name</button>
+
+    </span>
+
+    <!--This span obtains the desired quiz type-->
+
+    <span id="quizType" class="smallerblackarial" style="display:none">What types of ions do you want to practice naming?</br>
+
+       <span class="indent"> 
+
+        <button class="button" type="button" id="allIons">All Ions</button></br>
+
+        <button class="button" type="button" id="ionsYouMustKnowB">Ions You Must Know-High School (just main group and polyatomic ions)</button></br> 
+
+        <button class="button" type="button" id="ionsYouMustKnowA">Ions You Must Know-High School (with transition ions)</button></br>
+
+        <button class="button" type="button" id="allPolyatomicIons">All Polyatomic Ions</button></br>
+
+        <button class="button" type="button" id="polyatomicIonsYouMustKnow">Polyatomic Ions You Must Know (Coming Soon)</button></br>
+
+        <button class="button" type="button" id="monoatomicIons">Monoatomic Ions</button></br>
+
+      </span>
+
+    </span>
+
+    <!--This span describes the type of quiz selected-->
+
+    <span id="quizTypeExp" style="display:none">
+
+      <span id="quizTypeExpText" class="smallerblackarial">
+      </span></br>
+
+      <button class="button" type="button" id="qTypeCont">Continue to Quiz</button></br>
+
+      <div id="quizTypeExpWindow"></div>  
+
+    </span>
+
+
+	<span id="qNum" class="smallerblackarial" style="display:none">How many questions do you want?</br>
+
+     <span class="indent"> 
+
+      <button class="button" type="button" id="q10">10 Questions</button></br>
+      <button class="button" type="button" id="q25">25 Questions</button></br>
+      <button class="button" type="button" id="q50">50 Questions</button></br>
+      <button class="button" type="button" id="q100">100 Questions</button></br>
+
+  </span>
+
+
+
+  </span>
+
+  <span id="timerAmount" class="smallerblackarial" style="display:none">What time limit do you want for each question?</br>
+
+     <span class="indent"> 
+
+      <button class="button" type="button" id="timer5">5 seconds</button></br>
+      <button class="button" type="button" id="timer8">8 seconds</button></br>
+      <button class="button" type="button" id="timer10">10 seconds</button></br>
+      <button class="button" type="button" id="timer15">15 seconds</button></br>
+      <button class="button" type="button" id="timerNone">No time limit</button></br>  
+
+    </span>
+
+  </span>
+
+
+   <span class="indent"><button id="startButton" type="button" class="button" style="font-size:30px;display:none;">Start Practice</button></span>
+
+   <span id="question" style="display:none">
+
+      <span id="questionText" class="smallblackarialnocap">Select the correct name for the following ion:</span>
+
+      <span id="questionIon"  class="indentb smallblackarialnocap"></span></br></br>
+
+      <span id="answerButtons" class="indentb">
+      <button class=" smallblackarialnocap" id="answerA"></button></br>
+      <button class=" smallblackarialnocap" id="answerB"></button></br>
+      <button class=" smallblackarialnocap" id="answerC"></button></br>
+      <button class=" smallblackarialnocap" id="answerD"></button></br>
+      <button class=" smallblackarialnocap" id="answerE"></button></br>
+
+      </span>
+
+   </span>
+
+   <span id="practiceOver"  style="display:none">
+
+      <span id="practiceOverText" class="smallerblackarial"></span></br>
+      
+      <span class="indent">
+
+      <span class="smallerblackarial">To see a printable copy of your results, click</span>
+       <button class="button" id="seeResults">See Results</button></br></br>
+      <span class="smallerblackarial">To continue practicing, click</span>
+      <button class="button" id="morePractice">More Practice</button></br>
+     </span>
+
+   </span>
+
+    <span id="correctAnswerSpan"  style="display:none">
+
+      <span id="correctAnswer"></span>
+      <button class=" smallerarialnocap" id="nextQuestionCorrect">Next Question</button>
+
+    </span>
+
+    <span id="incorrectAnswerSpan"  style="display:none">
+
+      <span id="incorrectAnswer"></span>
+      <button class=" smallerarialnocap" id="nextQuestionIncorrect">Next Question</button>
+
+    </span>
+
+    <span id="explanation" style="display:none">
+
+      <span id="explanationTextTitle">Explanation: (<span id='expWindow' class='blue' style='cursor:pointer'>click to see explanation in expanded window</span>)</span>
+      <div id="explanationText">
+      </div>
+     
+    </span>
+
+    <span id="clock" style="display:none">
+
+      <span id="timerTitle">Timer:</span>
+      <div id="timer">
+        <span id="hours" style="font-class:arial;font-size:30px;color:black;font-weight:800"></span>
+        <span style="font-class:arial;font-size:30px;color:black;font-weight:800">:</span>
+        <span id="minutes" style="font-class:arial;font-size:30px;color:black;font-weight:800"></span>
+        <span style="font-class:arial;font-size:30px;color:black;font-weight:800">:</span>
+        <span id="seconds" style="font-class:arial;font-size:30px;color:black;font-weight:800"></span>
+        
+      </div>
+
+    </span>
+
+  
+ </div>
+
+</div>
+
+</body>
+
+
+</html>
+
+  
