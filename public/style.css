@@ -1,0 +1,206 @@
+.ltgrn {
+	background-color:#ccddcc;
+}
+
+header.header {
+	height: 100px;
+	background-color:#ccddcc;
+}
+
+h1.header {
+	height:80px;
+	background: #ccbbaa url(dmarlogomid.png) no-repeat top left; 
+	text-indent:-33333px; 
+}
+
+h2.header {
+	position:absolute;
+	top:15px;
+	left:300px;
+	font-family:Comic Sans MS;
+	color:#800000;
+	font-size:28pt;
+	font-weight:600;
+	font-style:italic;
+	margin:15px
+}
+
+address.header  {
+	position:absolute;
+	top:25px;
+	right:100px;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 12px;
+	font-weight: 600;
+	z-index:1;
+}
+
+p.splash {
+	width:80%;
+	margin:auto;
+}
+
+ul.splash {
+	width:80%;
+}
+
+.smallerblackarial {
+	font-family: "Arial";
+	color: #000000;
+	font-size: 18pt;
+	font-variant: small-caps;
+	font-weight: 600;
+}
+
+.marooncomic {
+	font-family: "Comic Sans MS";
+	color: #800000;
+	font-size: 24pt;
+	font-variant: small-caps;
+	font-weight: 600;
+}
+
+.smallermaroonarial {
+	font-family: "Arial";
+	color: #800000;
+	font-size: 18pt;
+	font-variant: small-caps;
+	font-weight: 600;
+	font-style: italic;
+}
+
+span.blackemmajor {
+	color:black;
+	font-weight:800;
+	font-size:150%;
+}
+
+span.smallblackarialnocap {
+	font-family: "Arial";
+	color: #000000;
+	font-size: 24pt;
+	font-weight: 600;
+}
+
+.indent {
+	position: relative;
+	left: 100px;
+}
+
+.centerText {
+	text-align: center;
+}
+
+.button {
+	-webkit-transition-duration: 0.2s; /* Safari */
+	transition-duration: 0.2s;
+}
+
+.button:hover {
+	background-color: lightgray; /* Green */
+	color: black;
+}
+
+.no-close .ui-dialog-titlebar-close {
+	display:none; /*required to hide the default close button of the widget*/
+}
+
+#dialog {
+	background: #ccbbaa url(dmarlogomidsmall.png) no-repeat bottom left; 
+	width:100px;
+	height:50px;
+}
+
+#quizTypeExpWindow {
+	width:1000px;
+	height:375px;
+	background-color:#cccccc;
+	overflow:auto;
+	padding:5px;
+	font-size:18px;
+	font-variant:normal; 
+	font-weight: 400;
+}
+
+ #explanationText {
+ 	width:410px;
+ 	height:375px;
+ 	position:absolute;
+ 	top:90px;
+ 	right:20px;
+ 	background-color:#cccccc;
+ 	padding:5px;
+ 	overflow:auto;
+ }
+
+#explanationTextTitle {
+	font-family: "Arial";
+	color: #000000;
+	font-size: 18pt;
+	font-variant: small-caps;
+	font-weight: 600;
+	position:absolute;
+	top:60px;
+	right:50px;
+	color:black;
+}
+
+#timerTitle {
+	font-family: "Arial";
+	color: #000000;
+	font-size: 18pt;
+	font-variant: small-caps;
+	font-weight: 600;
+	position:absolute;
+	top:150px;
+	right:600px;
+	color:black;
+}
+
+#timer {
+	width:200px;
+	height:100px;
+	position:absolute;
+	top:180px;
+	right:450px;
+	background-color:#ccbbaa;
+	padding:5px;
+	overflow:auto;
+}
+
+.red {
+	color:red;
+}
+
+.blue {
+	color:blue;
+}
+          
+.underline {
+	text-decoration:underline;
+}
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 80%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 10px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+
+
+
+
+
+
+
+
